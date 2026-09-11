@@ -4,7 +4,7 @@ import {
   allPeople, 
   notesStore, 
   STORAGE_KEY_HYPOTHESIS 
-} from './state.js';
+} from '../state/state.js';
 
 import { renderEvidenceDetail } from './evidence.js';
 

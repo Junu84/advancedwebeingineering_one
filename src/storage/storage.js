@@ -5,7 +5,7 @@ import {
   STORAGE_KEY_NOTES, 
   bookmarks, 
   setBookmarks 
-} from './state.js';
+} from '../state/state.js';
 
 const STORAGE_KEY_BOOKMARKS = "mystery_road_bookmarks";
 

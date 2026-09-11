@@ -5,13 +5,13 @@ import {
   allLocations, 
   modalCloseListenerCount, 
   setModalCloseListenerCount 
-} from './state.js';
+} from '../state/state.js';
 
 import { 
   formatDate, 
   findLocationById, 
   findEvidenceById 
-} from './utils.js';
+} from '../utils/utils.js';
 
 import { renderEvidenceDetail } from './evidence.js';
 

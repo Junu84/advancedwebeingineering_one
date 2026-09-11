@@ -4,12 +4,12 @@ import {
   allPeople, 
   allLocations, 
   caseData 
-} from './state.js';
+} from '../state/state.js';
 
 import { 
   formatDate, 
   getStatusBadgeClass 
-} from './utils.js';
+} from '../utils/utils.js';
 
 // No navigation import needed!
 

@@ -1,4 +1,4 @@
-import { allEvidence, allPeople, allLocations } from './state.js';
+import { allEvidence, allPeople, allLocations } from '../state/state.js';
 export function findEvidenceById(id) {
   for (var i = 0; i < allEvidence.length; i++) {
     if (allEvidence[i].id === id) return allEvidence[i];

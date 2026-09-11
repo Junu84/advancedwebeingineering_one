@@ -1,10 +1,10 @@
 // navigation.js
-import { viewRendered, setCurrentPage, currentPeopleTab } from './state.js';
-import { renderDashboard } from './dashboard.js';
-import { renderEvidenceList } from './evidence.js';
-import { renderPeopleView } from './people.js';
-import { renderTimeline } from './timeline.js';
-import { renderWorkspace } from './workspace.js';
+import { viewRendered, setCurrentPage, currentPeopleTab } from '../state/state.js';
+import { renderDashboard } from '../views/dashboard.js';
+import { renderEvidenceList } from '../views/evidence.js';
+import { renderPeopleView } from '../views/people.js';
+import { renderTimeline } from '../views/timeline.js';
+import { renderWorkspace } from '../views/workspace.js';
 
 const VALID_VIEWS = new Set(["dashboard", "evidence", "people", "timeline", "workspace"]);
 

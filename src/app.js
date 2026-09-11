@@ -1,12 +1,12 @@
 // app.js
 
 // 1. Module Imports
-import { loadAllData } from './data.js';
-import { handleHashChange, navigateTo } from './navigation.js';
-import { renderEvidenceList, handleSearchInput, clearFilters } from './evidence.js';
-import { renderTimeline } from './timeline.js';
-import { loadBookmarksFromStorage, loadNotesFromStorage, loadNoteAsync } from './storage.js';
-import { switchPeopleTab, renderPeopleView } from './people.js';
+import { loadAllData } from './data/data.js';
+import { handleHashChange, navigateTo } from './navigation/navigation.js';
+import { renderEvidenceList, handleSearchInput, clearFilters } from './views/evidence.js';
+import { renderTimeline } from './views/timeline.js';
+import { loadBookmarksFromStorage, loadNotesFromStorage, loadNoteAsync } from './storage/storage.js';
+import { switchPeopleTab, renderPeopleView } from './views/people.js';
 
 // Expose functions to window for global inline event handlers
 Object.assign(window, {

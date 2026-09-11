@@ -5,11 +5,11 @@ import {
   allEvidence, 
   currentPeopleTab,
   setCurrentPeopleTab 
-} from './state.js';
+} from '../state/state.js';
 
 import { 
   evidenceMentionsPerson 
-} from './utils.js';
+} from '../utils/utils.js';
 
 /**
  * Main render controller for the People / Directory view.

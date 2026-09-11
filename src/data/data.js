@@ -10,12 +10,12 @@ import {
   setAllTimeline, 
   setLoadingStepsRemaining,
   setEvidenceViewLoading
-} from './state.js';
+} from '../state/state.js';
 
-import { renderDashboard } from './dashboard.js';
-import { renderEvidenceList, populateEvidenceFilterDropdowns, applyStoredBookmarkFlags } from './evidence.js';
-import { renderTimeline, populateTimelineDropdowns } from './timeline.js';
-import { renderPeopleView } from './people.js';
+import { renderDashboard } from '../views/dashboard.js';
+import { renderEvidenceList, populateEvidenceFilterDropdowns, applyStoredBookmarkFlags } from '../views/evidence.js';
+import { renderTimeline, populateTimelineDropdowns } from '../views/timeline.js';
+import { renderPeopleView } from '../views/people.js';
 
 export function showLoadingOverlay(msg) {
   const overlay = document.getElementById("loadingOverlay");

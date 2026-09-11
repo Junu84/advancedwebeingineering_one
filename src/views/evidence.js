@@ -9,7 +9,7 @@ import {
   allPeople, 
   allLocations, 
   evidenceViewLoading 
-} from './state.js';
+} from '../state/state.js';
 
 import { 
   findEvidenceById, 
@@ -19,9 +19,9 @@ import {
   evidenceMentionsPerson, 
   getStatusBadgeClass, 
   getRelevanceBadgeClass 
-} from './utils.js';
+} from '../utils/utils.js';
 
-import { saveBookmarksToStorage } from './storage.js';
+import { saveBookmarksToStorage } from '../storage/storage.js';
 import { populateTimelineDropdowns } from './timeline.js';
 
 // ---------------------------------------------------------------------
