@@ -3,7 +3,7 @@
 // 1. Module Imports
 import { loadAllData } from './data/data.js';
 import { handleHashChange, navigateTo } from './navigation/navigation.js';
-import { renderEvidenceList, handleSearchInput, clearFilters } from './views/evidence.js';
+import { renderEvidenceList, handleSearchInput, clearFilters, handleSortChange} from './views/evidence.js';
 import { renderTimeline } from './views/timeline.js';
 import { loadBookmarksFromStorage, loadNotesFromStorage, loadNoteAsync } from './storage/storage.js';
 import { switchPeopleTab, renderPeopleView } from './views/people.js';
@@ -46,6 +46,7 @@ function setupEventListeners() {
   bindEvent('filterStatus', 'change', renderEvidenceList);
   bindEvent('filterRelevance', 'change', renderEvidenceList);
   bindEvent('clearFiltersBtn', 'click', clearFilters);
+  bindEvent('sortEvidence', 'change', handleSortChange);
 
   // Timeline Filter Listeners
   bindEvent('timelineOrder', 'change', renderTimeline);

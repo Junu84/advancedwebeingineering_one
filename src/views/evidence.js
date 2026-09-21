@@ -68,12 +68,14 @@ function getFilteredEvidence() {
   var locationEl = document.getElementById("filterLocation");
   var statusEl = document.getElementById("filterStatus");
   var relevanceEl = document.getElementById("filterRelevance");
+  var sortEl = document.getElementById("sortEvidence");
 
   var typeVal = typeEl ? typeEl.value : "";
   var personVal = personEl ? personEl.value : "";
   var locationVal = locationEl ? locationEl.value : "";
   var statusVal = statusEl ? statusEl.value : "";
   var relevanceVal = relevanceEl ? relevanceEl.value : "";
+  var sortVal = sortEl ? sortEl.value : "date-desc";
 
   var results = [];
   for (var i = 0; i < allEvidence.length; i++) {
@@ -95,9 +97,26 @@ function getFilteredEvidence() {
 
     if (matches) results.push(item);
   }
+ if (sortVal === "title-asc") {
+  results.sort(function (a, b) {
+    return a.title.localeCompare(b.title);
+  });
+} else if (sortVal === "title-desc") {
+  results.sort(function (a, b) {
+    return b.title.localeCompare(a.title);
+  });
+} else if (sortVal === "date-asc") {
+  results.sort(function (a, b) {
+    return new Date(a.timestamp) - new Date(b.timestamp);
+  });
+} else {
+  results.sort(function (a, b) {
+    return new Date(b.timestamp) - new Date(a.timestamp);
+  });
+}
 
-  setFilteredEvidence(results);
-  return results;
+setFilteredEvidence(results);
+return results;
 }
 
 // ---------------------------------------------------------------------
