@@ -127,6 +127,11 @@ export function saveHypothesis() {
       msg.classList.add("hidden");
     }, 2000);
   }
+  var saveHypothesisBtn = document.getElementById("saveHypothesisBtn");
+
+if (saveHypothesisBtn) {
+  saveHypothesisBtn.addEventListener("click", saveHypothesis);
+}
 }
 
 export function getSelectedOptions(selectEl) {

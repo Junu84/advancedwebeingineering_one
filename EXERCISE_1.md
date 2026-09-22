@@ -144,7 +144,7 @@ testing session. Find a bug that produces **no visible change in the UI** — on
 
 **Questions** (depend on the task above)
 
-- [ x] How did you notice this bug in the first place, given that nothing looked broken? Why is
+- [ xq] How did you notice this bug in the first place, given that nothing looked broken? Why is
       "nothing looks broken" not the same as "nothing is broken"?
 
 ---
@@ -176,6 +176,67 @@ same filter twice. Keep going past Demos 2–4 — this app does not have only t
       fixes were properly isolated from each other?
 
 ---
+
+### Bug 1 – People & Locations not displayed correctly
+
+**Reproduction steps:**
+1. Open "People & Locations".
+2. Switch between "People" and "Locations".
+3. The content is missing or the wrong content remains visible.
+
+**Expected behavior:**
+The People tab should show people and the Locations tab should show locations.
+
+**Actual behavior:**
+Initially both views were empty. After rendering was corrected, switching to Locations still showed the People content.
+
+**Root cause:**
+`renderPeople()` and `renderLocations()` referenced the wrong DOM container (`peopleList`).
+The actual containers in `index.html` are `peoplePanel` and `locationsPanel`.
+Additionally, `switchPeopleTab()` changed the active button but did not show/hide the corresponding panels.
+
+**Fix:**
+- Changed `renderPeople()` to use `peoplePanel`.
+- Changed `renderLocations()` to use `locationsPanel`.
+- Updated `switchPeopleTab()` to toggle the `hidden` class of both panels.
+
+**Verification:**
+Repeatedly switched People → Locations → People → Locations.
+The correct content is now displayed and the Console remains clean.
+
+
+### Bug 2 – Timeline displays "[object Object]" for locations
+
+**Reproduction steps:**
+1. Open the Timeline view.
+2. Select a timeline event that contains a location.
+3. Observe the Location field.
+
+**Expected behavior:**
+The location name should be displayed.
+
+**Actual behavior:**
+The Timeline displayed:
+
+`Location: [object Object]`
+
+**Root cause:**
+`findLocationById()` returns a complete location object.
+`renderTimeline()` added this object directly to `eventLocationNames`.
+When JavaScript converted the object to text, it became `[object Object]`.
+
+**Fix:**
+Changed:
+
+`eventLocationNames.push(evtLoc || item.locationIds[el]);`
+
+to:
+
+`eventLocationNames.push(evtLoc ? (evtLoc.name || evtLoc.id) : item.locationIds[el]);`
+
+**Verification:**
+Reloaded the Timeline and checked the same event.
+The location name is displayed instead of `[object Object]`, and the Console remains clean.
 
 ## Demo 6 — Use the JavaScript debugger
 

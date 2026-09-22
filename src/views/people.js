@@ -26,19 +26,31 @@ export function renderPeopleView() {
  * Switches active sub-tab between 'people' and 'locations'.
  */
 export function switchPeopleTab(tabName) {
-  // Update state so future renders stick to the active tab
   setCurrentPeopleTab(tabName);
 
   var peopleBtn = document.getElementById("tabPeopleBtn");
   var locationsBtn = document.getElementById("tabLocationsBtn");
 
+  var peoplePanel = document.getElementById("peoplePanel");
+  var locationsPanel = document.getElementById("locationsPanel");
+
   if (tabName === "locations") {
     if (peopleBtn) peopleBtn.classList.remove("active");
     if (locationsBtn) locationsBtn.classList.add("active");
+
+    // Hide people and show locations
+    if (peoplePanel) peoplePanel.classList.add("hidden");
+    if (locationsPanel) locationsPanel.classList.remove("hidden");
+
     renderLocations();
   } else {
     if (locationsBtn) locationsBtn.classList.remove("active");
     if (peopleBtn) peopleBtn.classList.add("active");
+
+    // Hide locations and show people
+    if (locationsPanel) locationsPanel.classList.add("hidden");
+    if (peoplePanel) peoplePanel.classList.remove("hidden");
+
     renderPeople();
   }
 }
@@ -47,7 +59,7 @@ export function switchPeopleTab(tabName) {
  * Renders the list of persons involved in the case.
  */
 export function renderPeople() {
-  var container = document.getElementById("peopleList");
+  var container = document.getElementById("peoplePanel");
   if (!container) return;
 
   if (!allPeople || allPeople.length === 0) {
@@ -84,7 +96,7 @@ export function renderPeople() {
  * Renders the list of key locations.
  */
 export function renderLocations() {
-  var container = document.getElementById("peopleList");
+  var container = document.getElementById("locationsPanel");
   if (!container) return;
 
   if (!allLocations || allLocations.length === 0) {

@@ -21,7 +21,13 @@ import {
   getRelevanceBadgeClass 
 } from '../utils/utils.js';
 
-import { saveBookmarksToStorage } from '../storage/storage.js';
+import { 
+  saveBookmarksToStorage,
+  saveNoteForEvidence,
+  loadNoteForEvidence
+} from '../storage/storage.js';
+
+
 import { populateTimelineDropdowns } from './timeline.js';
 
 // ---------------------------------------------------------------------
@@ -284,18 +290,64 @@ export function renderEvidenceDetail(evidenceId) {
   var ev = findEvidenceById(evidenceId);
   if (!ev) return;
 
-  var detailContainer = document.getElementById("evidenceDetail");
-  if (!detailContainer) return;
+  var detailContainer = document.getElementById("evidenceDetailSection");
+if (!detailContainer) return;
+
+detailContainer.classList.remove("hidden");
+
+  var storedNote = loadNoteForEvidence(ev.id);
 
   var html = '<div class="evidence-detail-card">';
   html += '<h2>' + ev.title + '</h2>';
-  html += '<p class="evidence-meta">' + ev.id + ' &middot; ' + ev.type + ' &middot; ' + formatDate(ev.timestamp) + '</p>';
-  html += '<div class="evidence-content"><p>' + (ev.description || ev.summary) + '</p></div>';
+  html += '<p class="evidence-meta">' +
+    ev.id + ' &middot; ' +
+    ev.type + ' &middot; ' +
+    formatDate(ev.timestamp) +
+    '</p>';
+
+  html += '<div class="evidence-content"><p>' +
+    (ev.description || ev.summary) +
+    '</p></div>';
+
+  html += '<div class="detail-field">';
+  html += '<strong>Investigator note</strong>';
+  html += '<textarea id="evidenceNoteInput" class="note-textarea" rows="3" ';
+  html += 'placeholder="Add a private note about this evidence...">' +
+    storedNote +
+    '</textarea>';
+
+  html += '<button type="button" id="saveNoteBtn" ';
+  html += 'class="btn btn-primary btn-small" style="margin-top:6px;">';
+  html += 'Save note</button>';
+  html += '</div>';
+
+  html += '<div class="detail-field">';
+  html += '<strong>Note preview</strong>';
+  html += '<div id="notePreview">' + storedNote + '</div>';
+  html += '</div>';
+
   html += '</div>';
 
   detailContainer.innerHTML = html;
-}
 
+  var saveButton = document.getElementById("saveNoteBtn");
+
+  if (saveButton) {
+    saveButton.addEventListener("click", function () {
+      var textarea = document.getElementById("evidenceNoteInput");
+      if (!textarea) return;
+
+      var text = textarea.value;
+
+      saveNoteForEvidence(ev.id, text);
+
+      var preview = document.getElementById("notePreview");
+      if (preview) {
+        preview.textContent = text;
+      }
+    });
+  }
+}
 // Alias to maintain full backwards compatibility
 export var openEvidenceDetail = renderEvidenceDetail;
 // Add to the bottom of evidence.js
