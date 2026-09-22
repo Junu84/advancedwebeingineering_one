@@ -116,15 +116,15 @@ flaky or timing-sensitive to reproduce. The point is that you can't explain the 
 
 **Tasks**
 
-- [ ] Reproduce the bug reliably and write down the exact steps.
-- [ ] Form a hypothesis for the root cause, expressed in terms of the async operation involved (what
+- [x] Reproduce the bug reliably and write down the exact steps.
+- [x] Form a hypothesis for the root cause, expressed in terms of the async operation involved (what
       was supposed to happen once it resolved, and what actually happened instead), and confirm it.
-- [ ] Fix it, and verify the fix actually addresses the async handling rather than papering over the
+- [ x] Fix it, and verify the fix actually addresses the async handling rather than papering over the
       symptom (e.g. don't just add a delay or a retry if the real issue is a missing state update).
 
 **Questions** (depend on the task above)
 
-- [ ] Explain the async operation this bug revolves around: what does it fetch/return, and at what
+- [ x] Explain the async operation this bug revolves around: what does it fetch/return, and at what
       point in its lifecycle (before it starts, while pending, on success, on failure) does the bug
       actually happen? How did you confirm that, rather than just guessing?
 
