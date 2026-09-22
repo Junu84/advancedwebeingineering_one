@@ -91,7 +91,8 @@ function getFilteredEvidence() {
       var person = findPersonById(personVal);
       if (!person || !evidenceMentionsPerson(item, person)) matches = false;
     }
-    if (matches && locationVal && item.locationIds && item.locationIds.indexOf(locationVal) === -1) matches = false;
+    if (matches && locationVal && item.locationIds
+       && item.locationIds.indexOf(locationVal) === -1) matches = false;
     if (matches && statusVal && (item.status || "").toLowerCase() !== statusVal) matches = false;
     if (matches && relevanceVal && (item.relevance || "").toLowerCase() !== relevanceVal) matches = false;
 
@@ -186,6 +187,7 @@ export function handleEvidenceListClick(event) {
   if (card) {
     renderEvidenceDetail(card.getAttribute("data-id"));
   }
+  
 }
 
 export function handleBookmarkClick(evidenceId) {
