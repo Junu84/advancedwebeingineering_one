@@ -138,13 +138,13 @@ testing session. Find a bug that produces **no visible change in the UI** — on
 
 **Tasks**
 
-- [ ] Reproduce the bug and capture the exact console output.
-- [ ] Trace it back to the line(s) of code responsible.
-- [ ] Fix it, and confirm the console is clean for that scenario afterward.
+- [ x] Reproduce the bug and capture the exact console output.
+- [ x] Trace it back to the line(s) of code responsible.
+- [x ] Fix it, and confirm the console is clean for that scenario afterward.
 
 **Questions** (depend on the task above)
 
-- [ ] How did you notice this bug in the first place, given that nothing looked broken? Why is
+- [ x] How did you notice this bug in the first place, given that nothing looked broken? Why is
       "nothing looks broken" not the same as "nothing is broken"?
 
 ---
