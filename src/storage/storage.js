@@ -1,13 +1,13 @@
 // storage.js
-import { 
-  notesStore, 
-  setNotesStore, 
-  STORAGE_KEY_NOTES, 
-  bookmarks, 
-  setBookmarks 
+import {
+  notesStore,
+  setNotesStore,
+  STORAGE_KEY_NOTES,
+  bookmarks,
+  setBookmarks,
 } from '../state/state.js';
 
-const STORAGE_KEY_BOOKMARKS = "mystery_road_bookmarks";
+const STORAGE_KEY_BOOKMARKS = 'mystery_road_bookmarks';
 
 // --- BOOKMARKS STORAGE ---
 export function saveBookmarksToStorage() {
@@ -36,7 +36,7 @@ export function saveNoteForEvidence(evidenceId, text) {
 }
 
 export function loadNoteForEvidence(evidenceId) {
-  return notesStore[evidenceId] || "";
+  return notesStore[evidenceId] || '';
 }
 
 export function loadNotesFromStorage() {
@@ -54,6 +54,6 @@ export function loadNotesFromStorage() {
 
 export function loadNoteAsync(evidenceId) {
   return new Promise(function (resolve) {
-    resolve(notesStore[evidenceId] || "");
+    resolve(notesStore[evidenceId] || '');
   });
 }

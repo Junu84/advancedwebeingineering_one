@@ -3,15 +3,24 @@
 // 1. Module Imports
 import { loadAllData } from './data/data.js';
 import { handleHashChange, navigateTo } from './navigation/navigation.js';
-import { renderEvidenceList, handleSearchInput, clearFilters, handleSortChange} from './views/evidence.js';
+import {
+  renderEvidenceList,
+  handleSearchInput,
+  clearFilters,
+  handleSortChange,
+} from './views/evidence.js';
 import { renderTimeline } from './views/timeline.js';
-import { loadBookmarksFromStorage, loadNotesFromStorage, loadNoteAsync } from './storage/storage.js';
+import {
+  loadBookmarksFromStorage,
+  loadNotesFromStorage,
+  loadNoteAsync,
+} from './storage/storage.js';
 import { switchPeopleTab, renderPeopleView } from './views/people.js';
 
 // Expose functions to window for global inline event handlers
 Object.assign(window, {
   navigateTo,
-  switchPeopleTab
+  switchPeopleTab,
 });
 
 // Helper function to safely attach event listeners
@@ -70,10 +79,10 @@ async function initApp() {
   setupEventListeners();
 
   await loadAllData();
-  
+
   handleHashChange();
   renderEvidenceList(); // Force re-render after async data load completes
-  renderPeopleView();   // Force re-render of people/locations after async data load completes
+  renderPeopleView(); // Force re-render of people/locations after async data load completes
 
   try {
     const firstNote = await loadNoteAsync('E01');

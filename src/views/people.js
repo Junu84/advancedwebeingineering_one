@@ -1,21 +1,19 @@
 // people.js
-import { 
-  allPeople, 
-  allLocations, 
-  allEvidence, 
+import {
+  allPeople,
+  allLocations,
+  allEvidence,
   currentPeopleTab,
-  setCurrentPeopleTab 
+  setCurrentPeopleTab,
 } from '../state/state.js';
 
-import { 
-  evidenceMentionsPerson 
-} from '../utils/utils.js';
+import { evidenceMentionsPerson } from '../utils/utils.js';
 
 /**
  * Main render controller for the People / Directory view.
  */
 export function renderPeopleView() {
-  if (currentPeopleTab === "locations") {
+  if (currentPeopleTab === 'locations') {
     renderLocations();
   } else {
     renderPeople();
@@ -28,28 +26,28 @@ export function renderPeopleView() {
 export function switchPeopleTab(tabName) {
   setCurrentPeopleTab(tabName);
 
-  var peopleBtn = document.getElementById("tabPeopleBtn");
-  var locationsBtn = document.getElementById("tabLocationsBtn");
+  var peopleBtn = document.getElementById('tabPeopleBtn');
+  var locationsBtn = document.getElementById('tabLocationsBtn');
 
-  var peoplePanel = document.getElementById("peoplePanel");
-  var locationsPanel = document.getElementById("locationsPanel");
+  var peoplePanel = document.getElementById('peoplePanel');
+  var locationsPanel = document.getElementById('locationsPanel');
 
-  if (tabName === "locations") {
-    if (peopleBtn) peopleBtn.classList.remove("active");
-    if (locationsBtn) locationsBtn.classList.add("active");
+  if (tabName === 'locations') {
+    if (peopleBtn) peopleBtn.classList.remove('active');
+    if (locationsBtn) locationsBtn.classList.add('active');
 
     // Hide people and show locations
-    if (peoplePanel) peoplePanel.classList.add("hidden");
-    if (locationsPanel) locationsPanel.classList.remove("hidden");
+    if (peoplePanel) peoplePanel.classList.add('hidden');
+    if (locationsPanel) locationsPanel.classList.remove('hidden');
 
     renderLocations();
   } else {
-    if (locationsBtn) locationsBtn.classList.remove("active");
-    if (peopleBtn) peopleBtn.classList.add("active");
+    if (locationsBtn) locationsBtn.classList.remove('active');
+    if (peopleBtn) peopleBtn.classList.add('active');
 
     // Hide locations and show people
-    if (locationsPanel) locationsPanel.classList.add("hidden");
-    if (peoplePanel) peoplePanel.classList.remove("hidden");
+    if (locationsPanel) locationsPanel.classList.add('hidden');
+    if (peoplePanel) peoplePanel.classList.remove('hidden');
 
     renderPeople();
   }
@@ -59,11 +57,12 @@ export function switchPeopleTab(tabName) {
  * Renders the list of persons involved in the case.
  */
 export function renderPeople() {
-  var container = document.getElementById("peoplePanel");
+  var container = document.getElementById('peoplePanel');
   if (!container) return;
 
   if (!allPeople || allPeople.length === 0) {
-    container.innerHTML = '<p class="text-muted text-center py-4">No people found.</p>';
+    container.innerHTML =
+      '<p class="text-muted text-center py-4">No people found.</p>';
     return;
   }
 
@@ -77,8 +76,8 @@ export function renderPeople() {
         <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title">${p.name || p.id}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">${p.role || "Role unspecified"}</h6>
-            <p class="card-text small">${p.description || "No description available."}</p>
+            <h6 class="card-subtitle mb-2 text-muted">${p.role || 'Role unspecified'}</h6>
+            <p class="card-text small">${p.description || 'No description available.'}</p>
           </div>
           <div class="card-footer bg-transparent border-0 pt-0">
             <span class="badge bg-secondary">${evCount} linked evidence item(s)</span>
@@ -96,11 +95,12 @@ export function renderPeople() {
  * Renders the list of key locations.
  */
 export function renderLocations() {
-  var container = document.getElementById("locationsPanel");
+  var container = document.getElementById('locationsPanel');
   if (!container) return;
 
   if (!allLocations || allLocations.length === 0) {
-    container.innerHTML = '<p class="text-muted text-center py-4">No locations found.</p>';
+    container.innerHTML =
+      '<p class="text-muted text-center py-4">No locations found.</p>';
     return;
   }
 
@@ -113,8 +113,8 @@ export function renderLocations() {
         <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title">${loc.name || loc.id}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">${loc.address || "Address unknown"}</h6>
-            <p class="card-text small">${loc.description || "No location details provided."}</p>
+            <h6 class="card-subtitle mb-2 text-muted">${loc.address || 'Address unknown'}</h6>
+            <p class="card-text small">${loc.description || 'No location details provided.'}</p>
           </div>
         </div>
       </div>
@@ -131,7 +131,7 @@ export function renderLocations() {
 export function countEvidenceForPerson(personId) {
   var count = 0;
   if (!allEvidence) return count;
-  
+
   for (var i = 0; i < allEvidence.length; i++) {
     var ev = allEvidence[i];
     if (ev.personIds && ev.personIds.indexOf(personId) !== -1) {
