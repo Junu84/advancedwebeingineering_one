@@ -85,8 +85,16 @@ Its shared content-addressable store and linked node_modules layout can save dis
 **Questions** (depend on the tasks above)
 
 - [ ] What is the difference between how you used to run this app (a plain static file server) and running it through Vite's dev server? Name at least one thing Vite's dev server does that a plain static server doesn't.
+
+ite also processes the module graph, injects its development client, watches files and sends browser updates.
+The stylesheet updated automatically through CSS HMR.
 - [ ] What is Hot Module Replacement, and what specifically did you observe happen (and *not* happen, e.g. to app state) when you triggered it?
+
+Updating affected modules/styles without reloading the entire document. Vite handles CSS replacement automatically. Vite documentation
+Saving the CSS color changed the header without document navigation.
+
 - [ ] Why does an app already split into ES modules (Exercise 1) integrate naturally with a tool like Vite, compared to the original single-`<script>` version?
+The existing module entry and explicit imports/exports already describe the dependency graph Vite follows. A classic single script lacks those module boundaries. Vite documentation
 
 ---
 
