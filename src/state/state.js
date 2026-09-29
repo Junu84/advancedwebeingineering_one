@@ -6,6 +6,7 @@
 export let allEvidence = [];
 export let filteredEvidence = [];
 export let selectedEvidence = null;
+/** @type {string[]} */
 export let bookmarks = [];
 export let currentPage = 'dashboard';
 
@@ -26,6 +27,7 @@ export const viewRendered = {
   workspace: false,
 };
 
+/** @type {Record<string, string>} */
 export let notesStore = {};
 export let modalCloseListenerCount = 0;
 
@@ -48,6 +50,7 @@ export function setFilteredEvidence(data) {
 export function setSelectedEvidence(data) {
   selectedEvidence = data;
 }
+/** @param {string[]} data */
 export function setBookmarks(data) {
   bookmarks = data;
 }
@@ -63,6 +66,7 @@ export function setAllTimeline(data) {
 export function setCaseData(data) {
   caseData = data;
 }
+/** @param {Record<string, string>} data */
 export function setNotesStore(data) {
   notesStore = data;
 }

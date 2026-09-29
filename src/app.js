@@ -2,7 +2,7 @@
 
 // 1. Module Imports
 import { loadAllData } from './data/data.js';
-import { handleHashChange, navigateTo } from './navigation/navigation.js';
+import { handleHashChange, navigateTo } from './navigation/navigation.ts';
 import {
   renderEvidenceList,
   handleSearchInput,
@@ -14,7 +14,7 @@ import {
   loadBookmarksFromStorage,
   loadNotesFromStorage,
   loadNoteAsync,
-} from './storage/storage.js';
+} from './storage/storage.ts';
 import { switchPeopleTab, renderPeopleView } from './views/people.js';
 
 // Expose functions to window for global inline event handlers

@@ -1,9 +1,10 @@
 import { cpSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
+import checker from 'vite-plugin-checker';
 
 export default defineConfig({
-  plugins: [{
+  plugins: [checker({ typescript: true, enableBuild: false }), {
     name: 'copy-runtime-files',
     apply: 'build',
     writeBundle({ dir }) {

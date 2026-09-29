@@ -1,7 +1,9 @@
+import tsParser from '@typescript-eslint/parser';
+
 export default [
   { ignores: ['dist/**', 'node_modules/**'] },
   {
-    files: ['src/**/*.js'],
+    files: ['src/**/*.{js,ts}'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
@@ -26,5 +28,11 @@ export default [
       'no-duplicate-imports': 'error',
       'prefer-const': 'error',
     },
+  },
+  {
+    files: ['src/**/*.ts'],
+    languageOptions: { parser: tsParser },
+    // TypeScript checks names, including type-only names such as Record.
+    rules: { 'no-undef': 'off' },
   },
 ];

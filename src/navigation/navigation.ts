@@ -1,4 +1,4 @@
-// navigation.js
+// navigation.ts
 import {
   viewRendered,
   setCurrentPage,
@@ -18,7 +18,7 @@ const VALID_VIEWS = new Set([
   'workspace',
 ]);
 
-export function handleHashChange() {
+export function handleHashChange(): void {
   const rawHash = window.location.hash.replace('#', '');
   const hash = VALID_VIEWS.has(rawHash) ? rawHash : 'dashboard';
 
@@ -54,6 +54,6 @@ export function handleHashChange() {
   }
 }
 
-export function navigateTo(viewId) {
+export function navigateTo(viewId: string): void {
   window.location.hash = viewId;
 }

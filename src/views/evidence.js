@@ -25,7 +25,7 @@ import {
   saveBookmarksToStorage,
   saveNoteForEvidence,
   loadNoteForEvidence,
-} from '../storage/storage.js';
+} from '../storage/storage.ts';
 
 import { populateTimelineDropdowns } from './timeline.js';
 
