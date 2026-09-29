@@ -1,4 +1,4 @@
-// app.js
+// app.ts
 
 // 1. Module Imports
 import { loadAllData } from './data/data.ts';
@@ -8,14 +8,14 @@ import {
   handleSearchInput,
   clearFilters,
   handleSortChange,
-} from './views/evidence.js';
-import { renderTimeline } from './views/timeline.js';
+} from './views/evidence.ts';
+import { renderTimeline } from './views/timeline.ts';
 import {
   loadBookmarksFromStorage,
   loadNotesFromStorage,
   loadNoteAsync,
 } from './storage/storage.ts';
-import { switchPeopleTab, renderPeopleView } from './views/people.js';
+import { switchPeopleTab, renderPeopleView } from './views/people.ts';
 
 // Expose functions to window for global inline event handlers
 Object.assign(window, {
@@ -24,7 +24,11 @@ Object.assign(window, {
 });
 
 // Helper function to safely attach event listeners
-function bindEvent(elementId, eventType, handler) {
+function bindEvent(
+  elementId: string,
+  eventType: string,
+  handler: EventListener,
+): void {
   const element = document.getElementById(elementId);
   if (element) {
     element.addEventListener(eventType, handler);
@@ -40,7 +44,7 @@ function setupEventListeners() {
 
   document.querySelectorAll('.nav-btn').forEach((btn) => {
     btn.addEventListener('click', (e) => {
-      const targetView = e.currentTarget.getAttribute('data-view');
+      const targetView = btn.getAttribute('data-view');
       if (targetView) {
         window.location.hash = targetView;
       }
@@ -66,7 +70,8 @@ function setupEventListeners() {
   // Workspace / Hypothesis Controls
   bindEvent('hypConfidence', 'input', (e) => {
     const display = document.getElementById('hypConfidenceValue');
-    if (display) display.textContent = e.target.value;
+    if (display && e.target instanceof HTMLInputElement)
+      display.textContent = e.target.value;
   });
 }
 

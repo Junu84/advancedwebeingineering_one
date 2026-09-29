@@ -1,12 +1,13 @@
-// dashboard.js
+// dashboard.ts
 import {
+  type ViewId,
   allEvidence,
   allPeople,
   allLocations,
   caseData,
-} from '../state/state.js';
+} from '../state/state.ts';
 
-import { formatDate, getStatusBadgeClass } from '../utils/utils.js';
+import { formatDate, getStatusBadgeClass } from '../utils/utils.ts';
 
 // No navigation import needed!
 
@@ -24,7 +25,6 @@ function renderCaseSummary() {
   if (titleEl) titleEl.textContent = caseData.title || 'Investigation Overview';
   if (descEl)
     descEl.textContent =
-      caseData.description ||
       'Overview of current evidence, key personnel, and timeline events.';
 }
 
@@ -72,7 +72,10 @@ function renderRecentEvidence() {
   var recent = allEvidence
     .slice()
     .sort(function (a, b) {
-      return new Date(b.timestamp || 0) - new Date(a.timestamp || 0);
+      return (
+        new Date(b.timestamp || 0).getTime() -
+        new Date(a.timestamp || 0).getTime()
+      );
     })
     .slice(0, 5);
 
@@ -96,7 +99,12 @@ function renderRecentEvidence() {
   container.innerHTML = html;
 }
 
-export function statCardHTML(title, value, colorClass, targetView) {
+export function statCardHTML(
+  title: string,
+  value: number,
+  colorClass: string,
+  targetView: ViewId,
+): string {
   return `
     <div class="col-md-2 col-sm-4 mb-3">
       <div class="card stat-card text-center h-100" style="cursor: pointer;" data-target="${targetView}">
@@ -113,7 +121,7 @@ function setupDashboardQuickLinks() {
   var statCards = document.querySelectorAll('.stat-card');
   statCards.forEach(function (card) {
     card.addEventListener('click', function () {
-      var view = this.getAttribute('data-target');
+      var view = card.getAttribute('data-target');
       if (view) {
         window.location.hash = view;
       }

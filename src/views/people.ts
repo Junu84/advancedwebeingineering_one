@@ -1,13 +1,15 @@
-// people.js
+import type { PersonId } from '../data/types.ts';
+// people.ts
 import {
+  type PeopleTab,
   allPeople,
   allLocations,
   allEvidence,
   currentPeopleTab,
   setCurrentPeopleTab,
-} from '../state/state.js';
+} from '../state/state.ts';
 
-import { evidenceMentionsPerson } from '../utils/utils.js';
+import { evidenceMentionsPerson } from '../utils/utils.ts';
 
 /**
  * Main render controller for the People / Directory view.
@@ -23,7 +25,7 @@ export function renderPeopleView() {
 /**
  * Switches active sub-tab between 'people' and 'locations'.
  */
-export function switchPeopleTab(tabName) {
+export function switchPeopleTab(tabName: PeopleTab): void {
   setCurrentPeopleTab(tabName);
 
   var peopleBtn = document.getElementById('tabPeopleBtn');
@@ -77,7 +79,7 @@ export function renderPeople() {
           <div class="card-body">
             <h5 class="card-title">${p.name || p.id}</h5>
             <h6 class="card-subtitle mb-2 text-muted">${p.role || 'Role unspecified'}</h6>
-            <p class="card-text small">${p.description || 'No description available.'}</p>
+            <p class="card-text small">No description available.</p>
           </div>
           <div class="card-footer bg-transparent border-0 pt-0">
             <span class="badge bg-secondary">${evCount} linked evidence item(s)</span>
@@ -113,7 +115,7 @@ export function renderLocations() {
         <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title">${loc.name || loc.id}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">${loc.address || 'Address unknown'}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">Address unknown</h6>
             <p class="card-text small">${loc.description || 'No location details provided.'}</p>
           </div>
         </div>
@@ -128,7 +130,7 @@ export function renderLocations() {
 /**
  * Helper to count how many evidence items reference a given person.
  */
-export function countEvidenceForPerson(personId) {
+export function countEvidenceForPerson(personId: PersonId): number {
   var count = 0;
   if (!allEvidence) return count;
 

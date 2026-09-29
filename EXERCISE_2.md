@@ -166,15 +166,23 @@ The existing module entry and explicit imports/exports already describe the depe
 
 **Tasks**
 
-- [ ] Convert the remaining `.js` modules to `.ts`, and get the **entire app** compiling with zero TypeScript errors under the strictness settings from Demo 5.
-- [ ] Find at least 3 real spots where the compiler flagged something you had to actually think about (a union type, a possibly-`undefined` value, an implicit `any`, etc.). For each, decide and record whether it pointed at a real latent bug or was "just" the compiler being pedantic.
-- [ ] Confirm the app still behaves identically to the working JavaScript version — a type-safe app that behaves differently is not a successful migration.
+- [x] Convert the remaining `.js` modules to `.ts`, and get the **entire app** compiling with zero TypeScript errors under the strictness settings from Demo 5.
+- [x] Find at least 3 real spots where the compiler flagged something you had to actually think about (a union type, a possibly-`undefined` value, an implicit `any`, etc.). For each, decide and record whether it pointed at a real latent bug or was "just" the compiler being pedantic.
+- [x] Confirm the app still behaves identically to the working JavaScript version — a type-safe app that behaves differently is not a successful migration.
 
 **Questions** (depend on the tasks above)
 
 - [ ] Show one specific type error you had to actually think about (not just silence with `any` or the `!` non-null assertion). What did it tell you about your code that plain JS review or testing hadn't?
 - [ ] When (if ever) is reaching for `any` the right call during a migration like this, versus a sign you should model the type properly? Where did you draw that line?
 - [ ] Did the migration reveal anything that was a genuine, previously-unnoticed bug (as opposed to just noise)? If yes, explain it. If no, explain how you're confident it was only noise.
+
+**Verified evidence:** See [DEMO_7.md](DEMO_7.md) for the actual compiler diagnostics, decisions, commands and before/after browser results.
+
+**Prepared answers (rehearse before ticking the question boxes):**
+
+1. The compiler rejected `Person.description` because the JSON model has no such field. JavaScript silently used a fallback; I preserved that displayed text instead of inventing a field. Typed DOM access and nullable lookups also required explicit handling.
+2. A narrowly documented compatibility boundary can sometimes justify `any`, but none was needed here. I used domain types, unions and guards; JSON annotations/assertions still do not provide runtime validation.
+3. The compiler confirmed real absent-field mismatches identified during inspection. Date subtraction and existing URL validation already worked in JavaScript and needed explicit types. The tested browser flows match the baseline; no new crashing bug is claimed, and existing Dashboard/hypothesis limitations remain.
 
 ---
 

@@ -19,19 +19,19 @@ import {
   setAllTimeline,
   setLoadingStepsRemaining,
   setEvidenceViewLoading,
-} from '../state/state.js';
+} from '../state/state.ts';
 
-import { renderDashboard } from '../views/dashboard.js';
+import { renderDashboard } from '../views/dashboard.ts';
 import {
   renderEvidenceList,
   populateEvidenceFilterDropdowns,
   applyStoredBookmarkFlags,
-} from '../views/evidence.js';
+} from '../views/evidence.ts';
 import {
   renderTimeline,
   populateTimelineDropdowns,
-} from '../views/timeline.js';
-import { renderPeopleView } from '../views/people.js';
+} from '../views/timeline.ts';
+import { renderPeopleView } from '../views/people.ts';
 
 export function showLoadingOverlay(msg: string): void {
   const overlay = document.getElementById('loadingOverlay');

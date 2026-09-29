@@ -1,27 +1,34 @@
-// timeline.js
+import type { TimelineEvent } from '../data/types.ts';
+// timeline.ts
 import {
   allTimeline,
   allPeople,
   allLocations,
   modalCloseListenerCount,
   setModalCloseListenerCount,
-} from '../state/state.js';
+} from '../state/state.ts';
 
 import {
   formatDate,
   findLocationById,
   findEvidenceById,
-} from '../utils/utils.js';
+} from '../utils/utils.ts';
 
-import { renderEvidenceDetail } from './evidence.js';
+import { renderEvidenceDetail } from './evidence.ts';
 
 // ---------------------------------------------------------------------
 // DROPDOWN POPULATION & RENDERING
 // ---------------------------------------------------------------------
 export function populateTimelineDropdowns() {
-  var personSelect = document.getElementById('timelinePersonFilter');
-  var locationSelect = document.getElementById('timelineLocationFilter');
-  var typeSelect = document.getElementById('timelineTypeFilter');
+  var personSelect = document.querySelector<HTMLSelectElement>(
+    '#timelinePersonFilter',
+  );
+  var locationSelect = document.querySelector<HTMLSelectElement>(
+    '#timelineLocationFilter',
+  );
+  var typeSelect = document.querySelector<HTMLSelectElement>(
+    '#timelineTypeFilter',
+  );
   if (!personSelect || !locationSelect || !typeSelect) return;
 
   personSelect.innerHTML = '<option value="">All people</option>';
@@ -60,10 +67,14 @@ export function renderTimeline() {
   var container = document.getElementById('timelineContainer');
   if (!container) return;
 
-  var orderEl = document.getElementById('timelineOrder');
-  var personEl = document.getElementById('timelinePersonFilter');
-  var locationEl = document.getElementById('timelineLocationFilter');
-  var typeEl = document.getElementById('timelineTypeFilter');
+  var orderEl = document.querySelector<HTMLSelectElement>('#timelineOrder');
+  var personEl = document.querySelector<HTMLSelectElement>(
+    '#timelinePersonFilter',
+  );
+  var locationEl = document.querySelector<HTMLSelectElement>(
+    '#timelineLocationFilter',
+  );
+  var typeEl = document.querySelector<HTMLSelectElement>('#timelineTypeFilter');
 
   var order = orderEl ? orderEl.value : 'asc';
   var personFilter = personEl ? personEl.value : '';
@@ -73,7 +84,8 @@ export function renderTimeline() {
   var events = [];
   for (var i = 0; i < allTimeline.length; i++) {
     var evt = allTimeline[i];
-    if (personFilter && evt.personIds.indexOf(personFilter) === -1) continue;
+    if (personFilter && !evt.personIds.some((id) => id === personFilter))
+      continue;
     if (locationFilter && evt.locationIds.indexOf(locationFilter) === -1)
       continue;
     if (typeFilter && evt.type !== typeFilter) continue;
@@ -81,7 +93,7 @@ export function renderTimeline() {
   }
 
   events = events.slice().sort(function (a, b) {
-    var diff = new Date(a.time) - new Date(b.time);
+    var diff = new Date(a.time).getTime() - new Date(b.time).getTime();
     return order === 'desc' ? -diff : diff;
   });
 
@@ -136,12 +148,15 @@ export function renderTimeline() {
   var linkButtons = container.querySelectorAll('.evidence-link-btn');
   for (var b = 0; b < linkButtons.length; b++) {
     linkButtons[b].addEventListener('click', function (e) {
-      openEvidenceModal(e.target.getAttribute('data-evidence-id'));
+      if (e.target instanceof Element)
+        openEvidenceModal(e.target.getAttribute('data-evidence-id'));
     });
   }
 }
 
-export function certaintyBadgeClass(certainty) {
+export function certaintyBadgeClass(
+  certainty: TimelineEvent['certainty'],
+): string {
   if (certainty === 'confirmed') return 'reviewed';
   if (certainty === 'contradictory') return 'critical';
   if (certainty === 'reported') return 'flagged';
@@ -151,7 +166,7 @@ export function certaintyBadgeClass(certainty) {
 // ---------------------------------------------------------------------
 // QUICK-VIEW MODAL CONTROLS
 // ---------------------------------------------------------------------
-export function openEvidenceModal(evidenceId) {
+export function openEvidenceModal(evidenceId: string | null): void {
   var ev = findEvidenceById(evidenceId);
   if (!ev) return;
 
@@ -185,16 +200,18 @@ export function openEvidenceModal(evidenceId) {
 
   setModalCloseListenerCount(modalCloseListenerCount + 1);
 
+  const activeModal = modal;
   modal.onclick = function (e) {
+    if (!(e.target instanceof Element)) return;
     if (
       e.target.classList.contains('modal-close-btn') ||
       e.target.classList.contains('modal-backdrop')
     ) {
-      modal.innerHTML = '';
+      activeModal.innerHTML = '';
     }
     if (e.target.getAttribute && e.target.getAttribute('data-open-full')) {
       var fullId = e.target.getAttribute('data-open-full');
-      modal.innerHTML = '';
+      activeModal.innerHTML = '';
       window.location.hash = 'evidence';
       setTimeout(function () {
         renderEvidenceDetail(fullId);

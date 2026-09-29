@@ -1,14 +1,15 @@
 // navigation.ts
 import {
+  type ViewId,
   viewRendered,
   setCurrentPage,
   currentPeopleTab,
-} from '../state/state.js';
-import { renderDashboard } from '../views/dashboard.js';
-import { renderEvidenceList } from '../views/evidence.js';
-import { renderPeopleView } from '../views/people.js';
-import { renderTimeline } from '../views/timeline.js';
-import { renderWorkspace } from '../views/workspace.js';
+} from '../state/state.ts';
+import { renderDashboard } from '../views/dashboard.ts';
+import { renderEvidenceList } from '../views/evidence.ts';
+import { renderPeopleView } from '../views/people.ts';
+import { renderTimeline } from '../views/timeline.ts';
+import { renderWorkspace } from '../views/workspace.ts';
 
 const VALID_VIEWS = new Set([
   'dashboard',
@@ -18,9 +19,13 @@ const VALID_VIEWS = new Set([
   'workspace',
 ]);
 
+function isViewId(value: string): value is ViewId {
+  return VALID_VIEWS.has(value);
+}
+
 export function handleHashChange(): void {
   const rawHash = window.location.hash.replace('#', '');
-  const hash = VALID_VIEWS.has(rawHash) ? rawHash : 'dashboard';
+  const hash = isViewId(rawHash) ? rawHash : 'dashboard';
 
   // Update current page in global state
   setCurrentPage(hash);
