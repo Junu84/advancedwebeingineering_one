@@ -1,5 +1,14 @@
-// data.js
+// data.ts
+import type {
+  CaseMetadata,
+  Evidence,
+  Location,
+  Person,
+  RawEvidence,
+  TimelineEvent,
+} from './types.ts';
 import {
+  allPeople,
   loadingStepsRemaining,
   currentPage,
   setCaseData,
@@ -24,14 +33,14 @@ import {
 } from '../views/timeline.js';
 import { renderPeopleView } from '../views/people.js';
 
-export function showLoadingOverlay(msg) {
+export function showLoadingOverlay(msg: string): void {
   const overlay = document.getElementById('loadingOverlay');
   const text = document.getElementById('loadingText');
   if (text) text.textContent = msg;
   if (overlay) overlay.classList.remove('hidden');
 }
 
-export function hideLoadingStep() {
+export function hideLoadingStep(): void {
   const steps = loadingStepsRemaining - 1;
   setLoadingStepsRemaining(steps);
   if (steps <= 0) {
@@ -40,23 +49,23 @@ export function hideLoadingStep() {
   }
 }
 
-function populateAllDropdowns() {
+function populateAllDropdowns(): void {
   populateEvidenceFilterDropdowns();
   populateTimelineDropdowns();
 }
 
-export async function loadCorePeopleAndLocations() {
+export async function loadCorePeopleAndLocations(): Promise<void> {
   try {
     const caseRes = await fetch('./data/case.json');
-    const caseJson = await caseRes.json();
+    const caseJson: CaseMetadata = await caseRes.json();
     setCaseData(caseJson);
 
     const peopleRes = await fetch('./data/people.json');
-    const peopleJson = await peopleRes.json();
+    const peopleJson: Person[] = await peopleRes.json();
     setAllPeople(peopleJson);
 
     const locationsRes = await fetch('./data/locations.json');
-    const locationsJson = await locationsRes.json();
+    const locationsJson: Location[] = await locationsRes.json();
     setAllLocations(locationsJson);
 
     hideLoadingStep();
@@ -72,10 +81,20 @@ export async function loadCorePeopleAndLocations() {
   }
 }
 
-export async function loadEvidenceData() {
+export async function loadEvidenceData(): Promise<void> {
   try {
     const res = await fetch('./data/evidence.json');
-    const data = await res.json();
+    const rawData: RawEvidence[] = await res.json();
+    const data: Evidence[] = rawData.map((evidence) => ({
+      ...evidence,
+      personIds: evidence.personIds.map((reference) => {
+        const person = allPeople.find(
+          (person) => person.id === reference || person.name === reference,
+        );
+        if (!person) throw new Error(`Unknown person reference: ${reference}`);
+        return person.id;
+      }),
+    }));
 
     setAllEvidence(data);
     applyStoredBookmarkFlags();
@@ -94,10 +113,10 @@ export async function loadEvidenceData() {
   }
 }
 
-export async function loadTimelineData() {
+export async function loadTimelineData(): Promise<void> {
   try {
     const res = await fetch('./data/timeline.json');
-    const data = await res.json();
+    const data: TimelineEvent[] = await res.json();
 
     setAllTimeline(data);
     renderDashboard();
@@ -113,7 +132,7 @@ export async function loadTimelineData() {
   }
 }
 
-export async function loadAllData() {
+export async function loadAllData(): Promise<void> {
   showLoadingOverlay('Loading case file…');
   setLoadingStepsRemaining(2);
 

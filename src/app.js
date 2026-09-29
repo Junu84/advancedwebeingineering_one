@@ -1,7 +1,7 @@
 // app.js
 
 // 1. Module Imports
-import { loadAllData } from './data/data.js';
+import { loadAllData } from './data/data.ts';
 import { handleHashChange, navigateTo } from './navigation/navigation.ts';
 import {
   renderEvidenceList,
