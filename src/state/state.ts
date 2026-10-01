@@ -96,3 +96,5 @@ export function setModalCloseListenerCount(count: number): void {
 export function setViewRendered(view: ViewId, status: boolean): void {
   viewRendered[view] = status;
 }
+
+export const demo10Failure: number = 'intentional error';
