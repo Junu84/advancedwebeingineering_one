@@ -19,7 +19,7 @@ export let allEvidence: Evidence[] = [];
 export let filteredEvidence: Evidence[] = [];
 export let selectedEvidence: Evidence | null = null;
 export let bookmarks: string[] = [];
-export let currentPage: ViewId = "dashboard";
+export let currentPage: ViewId = 'dashboard';
 
 export let allPeople: Person[] = [];
 export let allLocations: Location[] = [];
