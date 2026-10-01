@@ -4,6 +4,7 @@ import { defineConfig } from 'vite';
 import checker from 'vite-plugin-checker';
 
 export default defineConfig({
+  base: '/advancedwebeingineering_one/',
   plugins: [checker({ typescript: true, enableBuild: false }), {
     name: 'copy-runtime-files',
     apply: 'build',
