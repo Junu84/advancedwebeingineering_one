@@ -197,8 +197,14 @@ The existing module entry and explicit imports/exports already describe the depe
 **Questions** (depend on the tasks above)
 
 - [ ] What is the difference between a workflow, a job, and a step in GitHub Actions? Point to one of each in your workflow file.
+
+Development CI is the complete automation; quality is its job; Check formatting is one sequential step
 - [ ] Why should lint/format run in CI at all, if it already runs (or could run) on every developer's own machine before they push?
-- [ ] What is dependency caching doing in your workflow, and what would happen (both correctness- and speed-wise) if you removed it?
+
+Local checks can be skipped. CI checks committed changes consistently and provides a shared, inspectable result.
+
+
+- [ ] What is dependency caching doing in your workflow, and what would happen (both correctness- and speed-wise) if you removed it? It reuses downloaded packages. Removing caching preserves lockfile-based correctness but usually makes installation slower.
 
 ---
 
@@ -213,8 +219,19 @@ The existing module entry and explicit imports/exports already describe the depe
 **Questions** (depend on the tasks above)
 
 - [ ] Why does the deploy workflow re-run lint and build itself, instead of trusting "it already passed on my machine" or reusing Demo 8's workflow's result directly?
+
+Deployment verifies the exact commit it publishes and builds its own artifact; previous local/CI results might concern different code.
+
+
 - [ ] What is the actual mechanism your deploy workflow uses to publish to GitHub Pages (e.g. a dedicated deploy action publishing an artifact, pushing to a `gh-pages` branch, or something else)? Explain, concretely, what it does.
+
+upload-pages-artifact@v5 uploads dist/; configure-pages@v6 prepares Pages metadata; deploy-pages@v5 publishes the artifact.
+
+
 - [ ] What would you need to change in this workflow if you were deploying to a different static host instead (e.g. Netlify, Vercel, a plain server over SFTP)? What would stay the same?
+
+Keep installation, quality checks, Vite, and dist/. Replace deployment actions/credentials and adjust the hosting path.
+
 
 ---
 
