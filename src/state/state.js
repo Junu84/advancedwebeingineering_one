@@ -102,4 +102,3 @@ export function setModalCloseListenerCount(count) {
 export function setViewRendered(view, status) {
   viewRendered[view] = status;
 }
-
