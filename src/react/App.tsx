@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Dashboard from './Dashboard';
 
 type ViewId = 'dashboard' | 'evidence' | 'people' | 'timeline' | 'workspace';
 
