@@ -1,4 +1,3 @@
-
 import { useSearchParams } from 'react-router-dom';
 import { allTimeline } from '../../state/state.ts';
 import { TimelineEventCard } from './TimelineEventCard';
@@ -12,7 +11,7 @@ export default function TimelineView() {
   // Filter timeline events by person ID
   const filteredEvents = personId
     ? allTimeline.filter((event) =>
-       event.personIds.some((id) => String(id) === personId)
+        event.personIds.some((id) => String(id) === personId),
       )
     : allTimeline;
 
@@ -24,9 +23,7 @@ export default function TimelineView() {
         <h3>Timeline Overview</h3>
         <p>Timeline events: {filteredEvents.length}</p>
 
-        {personId && (
-          <p>Filtered by person: {personId}</p>
-        )}
+        {personId && <p>Filtered by person: {personId}</p>}
       </Card>
 
       {filteredEvents.length === 0 ? (
@@ -34,10 +31,7 @@ export default function TimelineView() {
       ) : (
         <div className="row">
           {filteredEvents.map((event) => (
-            <TimelineEventCard
-              key={event.id}
-              event={event}
-            />
+            <TimelineEventCard key={event.id} event={event} />
           ))}
         </div>
       )}

@@ -29,9 +29,7 @@ export default function KeyDemo() {
     <section>
       <h2>Demo 4 — Stable Keys</h2>
 
-      <button onClick={removeFirst}>
-        Remove first person
-      </button>
+      <button onClick={removeFirst}>Remove first person</button>
 
       <button onClick={reset}>Reset</button>
 
@@ -44,16 +42,11 @@ export default function KeyDemo() {
         Switch to {useIndex ? 'ID keys' : 'index keys'}
       </button>
 
-      <p>
-        Current key: {useIndex ? 'index' : 'person.id'}
-      </p>
+      <p>Current key: {useIndex ? 'index' : 'person.id'}</p>
 
       <div key={String(useIndex)}>
         {people.map((person, index) => (
-          <PersonRow
-            key={useIndex ? index : person.id}
-            name={person.name}
-          />
+          <PersonRow key={useIndex ? index : person.id} name={person.name} />
         ))}
       </div>
     </section>

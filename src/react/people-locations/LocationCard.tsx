@@ -1,4 +1,4 @@
-import type {Location} from '../../data/types.ts';
+import type { Location } from '../../data/types.ts';
 
 type LocationCardProps = {
   location: Location;

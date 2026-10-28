@@ -1,9 +1,4 @@
-
-import {
-  allPeople,
-  allEvidence,
-  allLocations,
-} from '../../state/state.ts';
+import { allPeople, allEvidence, allLocations } from '../../state/state.ts';
 
 import { Card } from '../components/Card';
 import { LocationCard } from './LocationCard';
@@ -25,14 +20,9 @@ export default function PeopleView({ mode }: PeopleViewProps) {
             <p>People loaded: {allPeople.length}</p>
           </Card>
 
-          <PeopleList
-            people={allPeople}
-            evidence={allEvidence}
-          />
+          <PeopleList people={allPeople} evidence={allEvidence} />
 
-          {allPeople.length > 0 && (
-            <p>Showing {allPeople.length} people.</p>
-          )}
+          {allPeople.length > 0 && <p>Showing {allPeople.length} people.</p>}
         </>
       ) : (
         <>
@@ -40,10 +30,7 @@ export default function PeopleView({ mode }: PeopleViewProps) {
 
           <div className="row">
             {allLocations.map((location) => (
-              <LocationCard
-                key={location.id}
-                location={location}
-              />
+              <LocationCard key={location.id} location={location} />
             ))}
           </div>
         </>

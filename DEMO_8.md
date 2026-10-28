@@ -19,15 +19,15 @@ Files changed in this task:
 
 ## Routes
 
-| URL | Result |
-| --- | --- |
-| `/dashboard` | React Dashboard |
-| `/team/people` | PeopleView mode="people", People cards |
-| `/team/locations` | PeopleView mode="locations", Location cards only |
-| `/timeline` | TimelineView, mapped event cards |
-| `/` or an unknown path | Navigate to /dashboard with replace |
-| `/evidence`, `/workspace` | Existing placeholders |
-| `/vanilla.html#dashboard` | Original vanilla application |
+| URL                       | Result                                           |
+| ------------------------- | ------------------------------------------------ |
+| `/dashboard`              | React Dashboard                                  |
+| `/team/people`            | PeopleView mode="people", People cards           |
+| `/team/locations`         | PeopleView mode="locations", Location cards only |
+| `/timeline`               | TimelineView, mapped event cards                 |
+| `/` or an unknown path    | Navigate to /dashboard with replace              |
+| `/evidence`, `/workspace` | Existing placeholders                            |
+| `/vanilla.html#dashboard` | Original vanilla application                     |
 
 The URL selects the collection; there is no local toggle state to synchronize. NavLink preserves active navigation styling. The wildcard redirect replaces the invalid history entry.
 
@@ -41,21 +41,21 @@ References: [BrowserRouter](https://reactrouter.com/api/declarative-routers/Brow
 
 ## Verification — 2026-10-28
 
-| Check | Result |
-| --- | --- |
-| npm run typecheck | PASS |
-| npm run lint | PASS; existing ESLint patterns cover JS/TS, not TSX; TypeScript checks TSX |
-| npm run build | PASS; nonfatal React Router use-client bundler warnings |
-| Dev HTTP: all five required routes | PASS: HTTP 200 and React entry, including nested paths and invalid URL |
-| Preview HTTP: all five required routes | PASS: HTTP 200 and built React entry |
-| Dev/preview react.html and vanilla.html | PASS: correct separate application entries |
-| Dev/preview JSON endpoints | PASS: case metadata, 6 people, 6 locations, 18 evidence items, 15 timeline events |
-| Actual rendered content and vanilla functionality | NOT TESTED in browser |
-| Navigation clicks and active styling | NOT TESTED in browser |
-| Direct browser URL entry and refresh of every route | NOT TESTED in browser; HTTP entry handling checked separately |
-| Browser Back and Forward | NOT TESTED |
-| Client-side unknown-route redirect | NOT TESTED in browser; wildcard code inspected |
-| Remote deployment | NOT TESTED |
+| Check                                               | Result                                                                            |
+| --------------------------------------------------- | --------------------------------------------------------------------------------- |
+| npm run typecheck                                   | PASS                                                                              |
+| npm run lint                                        | PASS; existing ESLint patterns cover JS/TS, not TSX; TypeScript checks TSX        |
+| npm run build                                       | PASS; nonfatal React Router use-client bundler warnings                           |
+| Dev HTTP: all five required routes                  | PASS: HTTP 200 and React entry, including nested paths and invalid URL            |
+| Preview HTTP: all five required routes              | PASS: HTTP 200 and built React entry                                              |
+| Dev/preview react.html and vanilla.html             | PASS: correct separate application entries                                        |
+| Dev/preview JSON endpoints                          | PASS: case metadata, 6 people, 6 locations, 18 evidence items, 15 timeline events |
+| Actual rendered content and vanilla functionality   | NOT TESTED in browser                                                             |
+| Navigation clicks and active styling                | NOT TESTED in browser                                                             |
+| Direct browser URL entry and refresh of every route | NOT TESTED in browser; HTTP entry handling checked separately                     |
+| Browser Back and Forward                            | NOT TESTED                                                                        |
+| Client-side unknown-route redirect                  | NOT TESTED in browser; wildcard code inspected                                    |
+| Remote deployment                                   | NOT TESTED                                                                        |
 
 Browser verification was attempted through the available computer-use tool. It reported no browsers/apps and an unavailable native pipe. HTTP checks do not execute React and are not browser-test passes.
 
@@ -95,15 +95,15 @@ Sources: [setup-node usage and caching](https://github.com/actions/setup-node), 
 
 ## Local evidence — completed
 
-| Check | Result |
-| --- | --- |
-| `npm ci` | Passed: 208 packages installed, 0 reported vulnerabilities. First attempt hit a Windows native-module file lock; stopping the two project Vite processes resolved it. |
-| `npm run lint` | Passed. |
-| `npm run format:check` | Passed. |
-| `npm run build` | Passed, including `npm run typecheck` and Vite build. |
-| `npm exec --no -- prettier --check .github/workflows/development.yml` | Passed YAML parsing/format checking; this is not GitHub workflow execution. |
-| Deliberate quote change below | Lint passed; format check failed with exit code 1 and named `src/state/state.ts`. |
-| Restore original source | Format check passed again; no final source or lockfile diff. |
+| Check                                                                 | Result                                                                                                                                                                |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm ci`                                                              | Passed: 208 packages installed, 0 reported vulnerabilities. First attempt hit a Windows native-module file lock; stopping the two project Vite processes resolved it. |
+| `npm run lint`                                                        | Passed.                                                                                                                                                               |
+| `npm run format:check`                                                | Passed.                                                                                                                                                               |
+| `npm run build`                                                       | Passed, including `npm run typecheck` and Vite build.                                                                                                                 |
+| `npm exec --no -- prettier --check .github/workflows/development.yml` | Passed YAML parsing/format checking; this is not GitHub workflow execution.                                                                                           |
+| Deliberate quote change below                                         | Lint passed; format check failed with exit code 1 and named `src/state/state.ts`.                                                                                     |
+| Restore original source                                               | Format check passed again; no final source or lockfile diff.                                                                                                          |
 
 Only the workflow, package script, and this document are final changes. No commits or pushes were made. Restart local development with `npm run dev` when needed.
 
@@ -122,7 +122,7 @@ export let currentPage: ViewId = 'dashboard';
 to:
 
 ```ts
-export let currentPage: ViewId = "dashboard";
+export let currentPage: ViewId = 'dashboard';
 ```
 
 This changes no value or runtime behavior. `.prettierrc.json` requires single quotes. If VS Code Format on Save changes it back, disable that option for this one save. Confirm locally before committing:
@@ -175,9 +175,9 @@ Stop any running project Vite servers before `npm ci` on Windows to avoid the na
 
 On GitHub, open the new **Development CI** run for B. The same **Check formatting** step should now report `All matched files use Prettier code style!`; the entire job should be green. Save this run URL and SHA. The workflow itself stays identical between A and B. A rerun of A still checks A's old content, so use B's new run for the passing evidence.
 
-| Required remote evidence | Status |
-| --- | --- |
-| A: failed formatting run URL + commit SHA | Pending — not yet run on GitHub. |
+| Required remote evidence                   | Status                           |
+| ------------------------------------------ | -------------------------------- |
+| A: failed formatting run URL + commit SHA  | Pending — not yet run on GitHub. |
 | B: subsequent passing run URL + commit SHA | Pending — not yet run on GitHub. |
 
 After observing each result, replace its pending row with the real URL/SHA. Only then mark the corresponding Demo 8 failure/pass checkboxes in `EXERCISE_2.md`. All assignment checkboxes remain unchanged for now.

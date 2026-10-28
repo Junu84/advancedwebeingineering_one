@@ -2,14 +2,14 @@
 
 ## Status
 
-| Requirement/evidence | Status |
-| --- | --- |
-| Deployment implementation | Completed locally. |
-| Local installation, quality checks, typecheck/build | Passed. |
-| Production subpath/resource verification | Passed via local HTTP preview; not a live browser test. |
-| GitHub deployment workflow passed | Pending; no commit/push or GitHub run performed for this demo. |
-| Live Pages application verified end-to-end | Pending. |
-| A second pushed change automatically went live | Pending. |
+| Requirement/evidence                                | Status                                                         |
+| --------------------------------------------------- | -------------------------------------------------------------- |
+| Deployment implementation                           | Completed locally.                                             |
+| Local installation, quality checks, typecheck/build | Passed.                                                        |
+| Production subpath/resource verification            | Passed via local HTTP preview; not a live browser test.        |
+| GitHub deployment workflow passed                   | Pending; no commit/push or GitHub run performed for this demo. |
+| Live Pages application verified end-to-end          | Pending.                                                       |
+| A second pushed change automatically went live      | Pending.                                                       |
 
 No Demo 9 assignment checkbox has been ticked. A YAML file or local preview alone does not prove deployment.
 

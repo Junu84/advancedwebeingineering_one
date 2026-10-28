@@ -60,20 +60,20 @@ on both servers, so personal browser storage was not changed. Browser automation
 was installed only in the operating system temporary directory, not in this
 project's dependencies. Results matched on both servers:
 
-| Area | Observation |
-|---|---|
-| Dashboard | Heading, introduction and navigation work; generated content area is empty on both servers (existing defect). |
-| Evidence | 18 cards; searching `calibration` produces 7 results after the asynchronous search finishes. |
-| Filters | Type `test-report`: 2; Signal Scholar: 3; L01: 9; unreviewed: 17; unknown relevance: 18. Clear restores 18. |
-| Sorting/detail | Title ascending works; opening a card displays its detail and note controls. |
-| People | Six named people, with linked-evidence counts. |
-| Locations | Six named locations; switching tabs works. |
-| Timeline | 15 events; descending reverses ascending order; Signal Scholar: 3, L01: 5, report: 1. |
-| Timeline links | Quick view opens; Open full evidence navigates to the matching detail. |
-| Workspace | Bookmark and saved note appear; bookmark Open navigates to detail. Both persist after reload. Confidence slider updates its output. |
-| Hypothesis Save | Does not persist on either server (existing defect). |
-| Data/assets | All five JSON requests return 200; logo loads; all 12 files in data/ and assets/ match their original bytes over Vite HTTP. |
-| JavaScript errors | No uncaught page errors in either tested flow. |
+| Area              | Observation                                                                                                                         |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Dashboard         | Heading, introduction and navigation work; generated content area is empty on both servers (existing defect).                       |
+| Evidence          | 18 cards; searching `calibration` produces 7 results after the asynchronous search finishes.                                        |
+| Filters           | Type `test-report`: 2; Signal Scholar: 3; L01: 9; unreviewed: 17; unknown relevance: 18. Clear restores 18.                         |
+| Sorting/detail    | Title ascending works; opening a card displays its detail and note controls.                                                        |
+| People            | Six named people, with linked-evidence counts.                                                                                      |
+| Locations         | Six named locations; switching tabs works.                                                                                          |
+| Timeline          | 15 events; descending reverses ascending order; Signal Scholar: 3, L01: 5, report: 1.                                               |
+| Timeline links    | Quick view opens; Open full evidence navigates to the matching detail.                                                              |
+| Workspace         | Bookmark and saved note appear; bookmark Open navigates to detail. Both persist after reload. Confidence slider updates its output. |
+| Hypothesis Save   | Does not persist on either server (existing defect).                                                                                |
+| Data/assets       | All five JSON requests return 200; logo loads; all 12 files in data/ and assets/ match their original bytes over Vite HTTP.         |
+| JavaScript errors | No uncaught page errors in either tested flow.                                                                                      |
 
 Existing defects were deliberately preserved: `dashboard.js` targets
 `dashCaseTitle`, `dashCaseDesc`, `dashboardStats`, and `dashboardRecentEvidence`,
@@ -137,12 +137,17 @@ JavaScript edits will preserve state: they can fall back to a full reload.
 5. In Console, run:
 
    ```js
-   [window.__hmrMarker, performance.timeOrigin === window.__hmrTimeOrigin,
-    location.hash, document.querySelector('#hypExplanation').value]
+   [
+     window.__hmrMarker,
+     performance.timeOrigin === window.__hmrTimeOrigin,
+     location.hash,
+     document.querySelector('#hypExplanation').value,
+   ];
    ```
 
    Expected: `['demo2-alive', true, '#workspace', 'UNSAVED HMR DEMO']`.
    LocalStorage alone is not proof of HMR because it also survives a full reload.
+
 6. Restore `#16233b` and save. The header changes back through HMR. Pause between
    saves so the two changes are distinct filesystem events.
 
@@ -178,11 +183,11 @@ References: [Vite project root and manual setup](https://vite.dev/guide/),
 ## Demo 2 checkbox assessment
 
 - [x] Install/configure Vite: installed as a devDependency, started successfully,
-  and modules/data/assets verified with the existing layout.
+      and modules/data/assets verified with the existing layout.
 - [ ] Every view works with the same functionality: tested behavior matches the
-  static-server baseline, but Dashboard generated content and hypothesis saving
-  already fail there. Do not claim all features work until those separate defects
-  are resolved or the professor accepts documented baseline equivalence.
+      static-server baseline, but Dashboard generated content and hypothesis saving
+      already fail there. Do not claim all features work until those separate defects
+      are resolved or the professor accepts documented baseline equivalence.
 - [x] Trigger HMR without a full-page reload: CSS update and retained state verified.
 - [x] Explain static server versus Vite: concrete observations and answer above.
 - [x] Explain HMR and observed state: tested and documented above.

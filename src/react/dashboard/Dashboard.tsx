@@ -16,12 +16,7 @@ type StatCardProps = {
   to: '/evidence' | '/team/people' | '/team/locations';
 };
 
-function StatCard({
-  title,
-  value,
-  colorClass,
-  to,
-}: StatCardProps) {
+function StatCard({ title, value, colorClass, to }: StatCardProps) {
   return (
     <div className="col-md-2 col-sm-4 mb-3">
       <Link
@@ -52,9 +47,7 @@ export default function Dashboard() {
   ).length;
 
   const reviewPercentage =
-    totalEvidence === 0
-      ? 0
-      : Math.round((reviewedCount / totalEvidence) * 100);
+    totalEvidence === 0 ? 0 : Math.round((reviewedCount / totalEvidence) * 100);
 
   const recentEvidence = allEvidence
     .slice()
@@ -164,9 +157,7 @@ export default function Dashboard() {
                     </small>
                   </div>
 
-                  <span
-                    className={`badge ${getStatusBadgeClass(item.status)}`}
-                  >
+                  <span className={`badge ${getStatusBadgeClass(item.status)}`}>
                     {item.status || 'unreviewed'}
                   </span>
                 </li>

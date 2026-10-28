@@ -63,12 +63,12 @@ The final build contains 15 files: index.html, one JS bundle, one CSS file, five
 JSON files and seven copied assets. Build output reports 15 transformed modules
 (this includes Vite-generated and non-JavaScript entries, not 15 source JS files).
 
-| Input | Output observed | Comparison |
-|---|---|---|
-| 11 JavaScript files under src/, 45,619 bytes total | assets/index-Bkt3EQM5.js, 20,562 bytes | Bundled together; code minified and identifiers shortened. |
-| styles.css, 15,355 bytes, 822 newline-separated lines | assets/index-ZAWMSz9M.css, 11,442 bytes, 2 lines | Minified CSS and content-hashed filename. |
-| index.html module entry and CSS link | dist/index.html references the two hashed output files | Entry references rewritten; no /@vite/client. |
-| data/ and assets/ | dist/data/ and dist/assets/ | All 12 runtime files copied byte-for-byte by our hook. |
+| Input                                                 | Output observed                                        | Comparison                                                 |
+| ----------------------------------------------------- | ------------------------------------------------------ | ---------------------------------------------------------- |
+| 11 JavaScript files under src/, 45,619 bytes total    | assets/index-Bkt3EQM5.js, 20,562 bytes                 | Bundled together; code minified and identifiers shortened. |
+| styles.css, 15,355 bytes, 822 newline-separated lines | assets/index-ZAWMSz9M.css, 11,442 bytes, 2 lines       | Minified CSS and content-hashed filename.                  |
+| index.html module entry and CSS link                  | dist/index.html references the two hashed output files | Entry references rewritten; no /@vite/client.              |
+| data/ and assets/                                     | dist/data/ and dist/assets/                            | All 12 runtime files copied byte-for-byte by our hook.     |
 
 Sizes are on-disk bytes, not gzip transfer sizes. Hashes can change when source
 or build tooling changes; always inspect the current output filenames.
@@ -199,8 +199,8 @@ References: [Vite production build](https://vite.dev/guide/build),
 
 - [x] Production build run and dist inspected.
 - [ ] Preview works end-to-end in every feature: preview and baseline parity tested,
-  but existing Dashboard/hypothesis defects remain. Preview itself is verified;
-  the unqualified end-to-end checkbox is conservatively left open.
+      but existing Dashboard/hypothesis defects remain. Preview itself is verified;
+      the unqualified end-to-end checkbox is conservatively left open.
 - [x] Source/output filenames, sizes and minification compared.
 - [x] Three actual transformations identified above.
 - [x] Content-hash purpose explained above.

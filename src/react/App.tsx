@@ -1,4 +1,3 @@
-
 import { NavLink, Routes, Route, Navigate } from 'react-router-dom';
 
 import Dashboard from './dashboard/Dashboard';
@@ -24,51 +23,19 @@ export default function App() {
 
       <main>
         <Routes>
-          <Route
-            path="/"
-            element={<Navigate to="/dashboard" replace />}
-          />
-
-          <Route
-            path="/dashboard"
-            element={<Dashboard />}
-          />
-
-          <Route
-            path="/evidence"
-            element={<h2>Evidence</h2>}
-          />
-
-          <Route
-            path="/team/people"
-            element={<PeopleView mode="people" />}
-          />
-
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/evidence" element={<h2>Evidence</h2>} />
+          <Route path="/team/people" element={<PeopleView mode="people" />} />
           /* Demo 9: Dynamic route parameters */
-         <Route
-          path="/team/people/:personId"
-          element={<PersonalDetail />}
-        />
-
+          <Route path="/team/people/:personId" element={<PersonalDetail />} />
           <Route
             path="/team/locations"
             element={<PeopleView mode="locations" />}
           />
-
-          <Route
-            path="/timeline"
-            element={<TimelineView />}
-          />
-
-          <Route
-            path="/workspace"
-            element={<h2>Workspace</h2>}
-          />
-
-          <Route
-            path="*"
-            element={<Navigate to="/dashboard" replace />}
-          />
+          <Route path="/timeline" element={<TimelineView />} />
+          <Route path="/workspace" element={<h2>Workspace</h2>} />
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </main>
     </>

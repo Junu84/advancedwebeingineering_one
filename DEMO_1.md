@@ -115,15 +115,15 @@ References: [npm lockfile documentation](https://docs.npmjs.com/cli/v10/configur
 - [x] Initialize package.json with proper metadata: created and inspected.
 - [x] Ignore node_modules: verified using git check-ignore.
 - [ ] Install one real dependency and show the lockfile committed: installation
-  and lockfile verified; commit intentionally not performed at the user's request.
+      and lockfile verified; commit intentionally not performed at the user's request.
 - [ ] Explain the package-manager problem: answer prepared above; student live
-  explanation still pending.
+      explanation still pending.
 - [ ] Explain dependency categories and later tools: answer prepared above;
-  student live explanation still pending.
+      student live explanation still pending.
 - [ ] Explain lockfile purpose and omission risks: answer prepared above;
-  student live explanation still pending.
+      student live explanation still pending.
 - [ ] Compare npm with pnpm: answer prepared above; student live explanation
-  still pending.
+      still pending.
 
 The original exercise checkboxes were not edited. Demo 1 is not yet fully Ready:
 the commit evidence and student live answers remain outstanding.

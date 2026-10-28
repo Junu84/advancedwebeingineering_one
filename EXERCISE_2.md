@@ -33,18 +33,18 @@ presented in class.
 These checkboxes are for self-checking. Don't forget to do the actual checking of tasks you are able to present in the Moodle course. **Before class, tick only what you can genuinely demonstrate
 or answer on the spot, live.**
 
-| # | Demo | Ready? |
-|---|---|---|
-| 1 | Initialize the package manager & project metadata | ☐ |
-| 2 | Integrate Vite as the dev server | ☐ |
-| 3 | Production build & preview | ☐ |
-| 4 | `package.json` scripts: lint & format | ☐ |
-| 5 | TypeScript setup & first conversions | ☐ |
-| 6 | Typing the domain data | ☐ |
-| 7 | Full migration & resolving type errors | ☐ |
-| 8 | GitHub Actions: development workflow | ☐ |
-| 9 | GitHub Actions: deployment workflow | ☐ |
-| 10 | Workflow triggers, permissions & failure modes | ☐ |
+| #   | Demo                                              | Ready? |
+| --- | ------------------------------------------------- | ------ |
+| 1   | Initialize the package manager & project metadata | ☐      |
+| 2   | Integrate Vite as the dev server                  | ☐      |
+| 3   | Production build & preview                        | ☐      |
+| 4   | `package.json` scripts: lint & format             | ☐      |
+| 5   | TypeScript setup & first conversions              | ☐      |
+| 6   | Typing the domain data                            | ☐      |
+| 7   | Full migration & resolving type errors            | ☐      |
+| 8   | GitHub Actions: development workflow              | ☐      |
+| 9   | GitHub Actions: deployment workflow               | ☐      |
+| 10  | Workflow triggers, permissions & failure modes    | ☐      |
 
 A demo only counts as "Ready" once **every** task and question checkbox inside it (below) is
 ticked. The table above is just a fast overview, tick the boxes inside each demo first.
@@ -63,15 +63,16 @@ ticked. The table above is just a fast overview, tick the boxes inside each demo
 **Questions** (depend on the tasks above)
 
 - [ ] What problem does a package manager actually solve that "download the library and put it in a folder yourself" doesn't? Be specific.
-It records dependencies, resolves their dependencies, downloads versions and automates installation and updates—avoiding undocumented manual copies.
+      It records dependencies, resolves their dependencies, downloads versions and automates installation and updates—avoiding undocumented manual copies.
 - [ ] What's the difference between `dependencies` and `devDependencies` in `package.json`?
-Dependencies versus devDependencies? dependencies contains runtime libraries; devDependencies contains development, checking and build tools.
- Which category will Vite, your linter/formatter, and TypeScript belong to, and why?
- In devDependencies: they support development and produce/check the application, rather than running as tools in the deployed browser app.
+      Dependencies versus devDependencies? dependencies contains runtime libraries; devDependencies contains development, checking and build tools.
+      Which category will Vite, your linter/formatter, and TypeScript belong to, and why?
+      In devDependencies: they support development and produce/check the application, rather than running as tools in the deployed browser app.
 - [ ] What is a lockfile for, and what could go wrong for your teammates (or CI) if it weren't committed to the repo?
-It records exact resolved versions, including transitive dependencies, plus download locations and integrity hashes. npm documentation. Teammates may install different versions allowed by the same ranges, causing inconsistent behavior. CI using npm ci requires a suitable lockfile.
+      It records exact resolved versions, including transitive dependencies, plus download locations and integrity hashes. npm documentation. Teammates may install different versions allowed by the same ranges, causing inconsistent behavior. CI using npm ci requires a suitable lockfile.
 - [ ] If you chose pnpm: what does it do differently from npm regarding how `node_modules` is laid out and how disk space/install time is shared across projects? If you chose npm: what would you gain or lose by switching to pnpm on a larger project?
-Its shared content-addressable store and linked node_modules layout can save disk space and speed repeated installs across projects. Switching requires team adoption, a pnpm lockfile and checking tooling compatibility. npm already meets this small project’s needs. pnpm documentation
+      Its shared content-addressable store and linked node_modules layout can save disk space and speed repeated installs across projects. Switching requires team adoption, a pnpm lockfile and checking tooling compatibility. npm already meets this small project’s needs. pnpm documentation
+
 ---
 
 ## Demo 2 — Integrate Vite as the dev server
@@ -88,13 +89,14 @@ Its shared content-addressable store and linked node_modules layout can save dis
 
 ite also processes the module graph, injects its development client, watches files and sends browser updates.
 The stylesheet updated automatically through CSS HMR.
-- [ ] What is Hot Module Replacement, and what specifically did you observe happen (and *not* happen, e.g. to app state) when you triggered it?
+
+- [ ] What is Hot Module Replacement, and what specifically did you observe happen (and _not_ happen, e.g. to app state) when you triggered it?
 
 Updating affected modules/styles without reloading the entire document. Vite handles CSS replacement automatically. Vite documentation
 Saving the CSS color changed the header without document navigation.
 
 - [ ] Why does an app already split into ES modules (Exercise 1) integrate naturally with a tool like Vite, compared to the original single-`<script>` version?
-The existing module entry and explicit imports/exports already describe the dependency graph Vite follows. A classic single script lacks those module boundaries. Vite documentation
+      The existing module entry and explicit imports/exports already describe the dependency graph Vite follows. A classic single script lacks those module boundaries. Vite documentation
 
 ---
 
@@ -199,10 +201,10 @@ The existing module entry and explicit imports/exports already describe the depe
 - [ ] What is the difference between a workflow, a job, and a step in GitHub Actions? Point to one of each in your workflow file.
 
 Development CI is the complete automation; quality is its job; Check formatting is one sequential step
+
 - [ ] Why should lint/format run in CI at all, if it already runs (or could run) on every developer's own machine before they push?
 
 Local checks can be skipped. CI checks committed changes consistently and provides a shared, inspectable result.
-
 
 - [ ] What is dependency caching doing in your workflow, and what would happen (both correctness- and speed-wise) if you removed it? It reuses downloaded packages. Removing caching preserves lockfile-based correctness but usually makes installation slower.
 
@@ -222,16 +224,13 @@ Local checks can be skipped. CI checks committed changes consistently and provid
 
 Deployment verifies the exact commit it publishes and builds its own artifact; previous local/CI results might concern different code.
 
-
 - [ ] What is the actual mechanism your deploy workflow uses to publish to GitHub Pages (e.g. a dedicated deploy action publishing an artifact, pushing to a `gh-pages` branch, or something else)? Explain, concretely, what it does.
 
 upload-pages-artifact@v5 uploads dist/; configure-pages@v6 prepares Pages metadata; deploy-pages@v5 publishes the artifact.
 
-
 - [ ] What would you need to change in this workflow if you were deploying to a different static host instead (e.g. Netlify, Vercel, a plain server over SFTP)? What would stay the same?
 
 Keep installation, quality checks, Vite, and dist/. Replace deployment actions/credentials and adjust the hosting path.
-
 
 ---
 
@@ -239,7 +238,7 @@ Keep installation, quality checks, Vite, and dist/. Replace deployment actions/c
 
 **Tasks**
 
-- [ ] Deliberately commit a real TypeScript error (or a lint failure) that should block deployment, push it, and show the deploy workflow failing *before* it reaches the deploy step.
+- [ ] Deliberately commit a real TypeScript error (or a lint failure) that should block deployment, push it, and show the deploy workflow failing _before_ it reaches the deploy step.
 - [ ] Identify exactly what permissions and/or secrets your deploy workflow needs to publish to GitHub Pages, and show where they're configured (repository settings, the `permissions:` key in the workflow file, etc.).
 - [ ] Open the run history for both workflows and be ready to read a failed run's logs live and explain, to someone unfamiliar with it, what failed and why.
 
@@ -254,5 +253,5 @@ Keep installation, quality checks, Vite, and dist/. Replace deployment actions/c
 ## What to bring to class
 
 For each of the 10 demos: your changed code/config (ideally as commits you can diff live), the actual GitHub Actions run history for both workflows (not just the files), and the ticked checkboxes
-above reflecting what you can genuinely demonstrate and answer *right now*. Be ready to trigger a real workflow run live (e.g. via a small commit) on request, not just describe
+above reflecting what you can genuinely demonstrate and answer _right now_. Be ready to trigger a real workflow run live (e.g. via a small commit) on request, not just describe
 one that ran earlier.

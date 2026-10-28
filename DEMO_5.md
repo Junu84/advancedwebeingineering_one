@@ -35,16 +35,16 @@ TypeScript; preview serves the compiled JavaScript from dist/.
 
 ## Compiler choices to explain
 
-| Setting | Reason |
-|---|---|
-| strict: true | Enables the strict family, including noImplicitAny and strictNullChecks. Missing parameter types cannot silently become any, and nullable values need handling. |
-| allowJs: true, checkJs: false | Allows imports from existing JS without attempting Demo 7's whole-application checking. Imported JS is part of the program but remains unchecked. |
-| noEmit: true | tsc checks types; Vite performs code transformation and bundling. No duplicate JS files are written beside source. |
-| module: ESNext, moduleResolution: Bundler | Matches the existing ES-module/Vite setup. |
-| allowImportingTsExtensions: true | Explicit .ts import paths work with Vite and this no-emit configuration. |
-| target: ES2022, lib: ES2022/DOM | Modern JavaScript and browser APIs such as document and localStorage. Vite still controls its production output target. |
-| types: [] | Avoids automatically introducing installed ambient Node/test globals into browser source. |
-| include: src/**/*.ts | Starts checking with the two converted modules and follows their imports. |
+| Setting                                   | Reason                                                                                                                                                          |
+| ----------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| strict: true                              | Enables the strict family, including noImplicitAny and strictNullChecks. Missing parameter types cannot silently become any, and nullable values need handling. |
+| allowJs: true, checkJs: false             | Allows imports from existing JS without attempting Demo 7's whole-application checking. Imported JS is part of the program but remains unchecked.               |
+| noEmit: true                              | tsc checks types; Vite performs code transformation and bundling. No duplicate JS files are written beside source.                                              |
+| module: ESNext, moduleResolution: Bundler | Matches the existing ES-module/Vite setup.                                                                                                                      |
+| allowImportingTsExtensions: true          | Explicit .ts import paths work with Vite and this no-emit configuration.                                                                                        |
+| target: ES2022, lib: ES2022/DOM           | Modern JavaScript and browser APIs such as document and localStorage. Vite still controls its production output target.                                         |
+| types: []                                 | Avoids automatically introducing installed ambient Node/test globals into browser source.                                                                       |
+| include: src/**/*.ts                      | Starts checking with the two converted modules and follows their imports.                                                                                       |
 
 No explicit any, @ts-ignore, or @ts-nocheck was added to the converted modules.
 Unchecked JavaScript imports and JSON assertions still limit the overall safety:
@@ -107,6 +107,7 @@ From mystery-road-awe-2026:
    Save. Show TS2322 in both the dev terminal and the browser overlay. The checker
    reports errors asynchronously; Vite can still transpile invalidly typed code.
    The production build is the blocking check.
+
 4. In a second terminal run `npm run build`. Expect exit code 2 and no Vite build.
    Restore the original declaration and save. Show the watcher returning to zero
    errors, then run `npm run typecheck`, `npm run lint`, and `npm run build` again.
@@ -153,9 +154,9 @@ References: [TypeScript strict](https://www.typescriptlang.org/tsconfig/strict.h
 
 - [x] TypeScript installed; tsconfig strictness selected and justified.
 - [x] Two existing modules converted without any annotations; strict compilation
-  passes with zero errors.
+      passes with zero errors.
 - [x] Build and development surface type errors: failure, overlay, recovery and
-  successful build verified.
+      successful build verified.
 - [x] Strict options explained using at least two individual checks.
 - [x] Compile-time errors compared with actual documented Exercise 1 bugs.
 - [x] any and the reason for avoiding it explained.

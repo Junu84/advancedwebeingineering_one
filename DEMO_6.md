@@ -26,14 +26,14 @@ All actual JSON fields remain required. Dates remain strings because that is the
 
 From the project directory:
 
-| Command | Result |
-| --- | --- |
-| `npm run typecheck` | Passed; also passed again after restoring the deliberately invalid value. |
-| `npm run lint` | Passed. |
-| `npm exec --no -- prettier --check "src/**/*.{js,ts}"` | Passed. |
-| `npm run build` | Passed strict type checking and production build. |
-| `npm run dev -- --host 127.0.0.1 --port 5176 --strictPort` | Started successfully; watcher reported zero TypeScript errors. |
-| `npm exec --no -- vite preview --host 127.0.0.1 --port 4176 --strictPort` | Started successfully; built application tested. |
+| Command                                                                   | Result                                                                    |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `npm run typecheck`                                                       | Passed; also passed again after restoring the deliberately invalid value. |
+| `npm run lint`                                                            | Passed.                                                                   |
+| `npm exec --no -- prettier --check "src/**/*.{js,ts}"`                    | Passed.                                                                   |
+| `npm run build`                                                           | Passed strict type checking and production build.                         |
+| `npm run dev -- --host 127.0.0.1 --port 5176 --strictPort`                | Started successfully; watcher reported zero TypeScript errors.            |
+| `npm exec --no -- vite preview --host 127.0.0.1 --port 4176 --strictPort` | Started successfully; built application tested.                           |
 
 Browser verification used headless Edge with the existing external test tooling; no test dependencies were added to the project. Results on both development and production preview:
 
@@ -64,15 +64,18 @@ Existing limitations remain: the Dashboard content area is empty because its ren
    ```
 
    The line number may differ if blank lines are added. The compiler rejects a display name because it is not one of the allowed ID literals. This tests a typed value in source code, not runtime JSON validation.
+
 5. Remove the temporary line and save. Run `npm run typecheck` again: it succeeds. Do not leave the invalid example in the source.
 6. Run `npm run dev -- --host 127.0.0.1 --port 5176 --strictPort` and open `http://127.0.0.1:5176/`. If that port is occupied, stop the old server first. In DevTools **Network**, reload, filter for `.json`, and show all five successful responses. In the evidence response, E04 still contains `"Nova Byte"`.
 7. In DevTools **Console** on the development server, after loading finishes, run:
 
    ```js
-   (await import('/src/state/state.js')).allEvidence.find(e => e.id === 'E04').personIds
+   (await import('/src/state/state.js')).allEvidence.find((e) => e.id === 'E04')
+     .personIds;
    ```
 
    Expected result: `["nova-byte"]`. This source-module inspection is for the development server, not the bundled production preview.
+
 8. Open **Evidence**, choose Nova Byte in the person filter: five results, including **Missing depth-camera report** (E04). Open **People**: Nova shows five linked items. Open its **Locations** tab: six locations. Open **Timeline**: test filters/order and an evidence link. In **Workspace**, show a saved note/bookmark and its persistence after reload. The known Dashboard/hypothesis limitations above are unrelated to this demo.
 9. Show `npm run lint`, the Prettier check, and `npm run build` succeeding. Inspect Console for unexpected application errors; the existing favicon 404 is documented above.
 

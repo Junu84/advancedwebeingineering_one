@@ -4,23 +4,23 @@
 
 The eight remaining application JavaScript modules were converted to TypeScript. All 12 source modules now use `.ts`, and `strict: true` remains enabled. No packages were installed.
 
-| File | Change and reason |
-| --- | --- |
-| `src/state/state.js` → `state.ts` | Replace JSDoc with TypeScript types reusing Demo 6 domain models. Type setter parameters, nullable selected evidence, view keys (`ViewId`), and directory tabs (`PeopleTab`). |
-| `src/utils/utils.js` → `utils.ts` | Type lookup inputs and nullable results, formatting helpers, and the existing raw/canonical evidence-person comparison. |
-| `src/views/evidence.js` → `evidence.ts` | Type evidence arguments, form controls, events, async search, and detail lookups; use numeric timestamps for sorting. Preserve summary text previously selected by the absent-description fallback. |
-| `src/views/people.js` → `people.ts` | Type tab and person-ID parameters. Preserve the displayed description/address fallback text without inventing absent JSON fields. |
-| `src/views/timeline.js` → `timeline.ts` | Type controls, certainty, event targets and modal lookups. Compare the raw filter string with canonical IDs without asserting it is a valid ID. Use numeric timestamps for sorting. |
-| `src/views/dashboard.js` → `dashboard.ts` | Type statistic-card parameters and timestamps; retain the existing description fallback and use the already-known card element in its listener. |
-| `src/views/workspace.js` → `workspace.ts` | Type form controls, nullable DOM access, selected values, and the existing stored draft shape. Keep confidence as a string, matching input values. |
-| `src/app.js` → `app.ts` | Type event binding and narrow input event targets. |
-| `src/data/data.ts` | Update imports only; loading, normalization and error handling are unchanged. |
-| `src/storage/storage.ts` | Update the state import only; preserve all storage keys and behavior. |
-| `src/navigation/navigation.ts` | Update imports and express the existing allowed-view check as a type guard before calling the typed setter. |
-| `index.html` | Reference `app.ts` as the module entry; update its related comment. |
-| `tsconfig.json` | Set `allowJs: false` and remove the obsolete `checkJs: false`. Keep the previous strictness and `src/**/*.ts` scope. |
-| `EXERCISE_2.md` | Update only Demo 7: verified task checkboxes and concise question answers. |
-| `DEMO_7.md` | Record migration decisions, actual compiler findings and demonstration steps. |
+| File                                      | Change and reason                                                                                                                                                                                   |
+| ----------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/state/state.js` → `state.ts`         | Replace JSDoc with TypeScript types reusing Demo 6 domain models. Type setter parameters, nullable selected evidence, view keys (`ViewId`), and directory tabs (`PeopleTab`).                       |
+| `src/utils/utils.js` → `utils.ts`         | Type lookup inputs and nullable results, formatting helpers, and the existing raw/canonical evidence-person comparison.                                                                             |
+| `src/views/evidence.js` → `evidence.ts`   | Type evidence arguments, form controls, events, async search, and detail lookups; use numeric timestamps for sorting. Preserve summary text previously selected by the absent-description fallback. |
+| `src/views/people.js` → `people.ts`       | Type tab and person-ID parameters. Preserve the displayed description/address fallback text without inventing absent JSON fields.                                                                   |
+| `src/views/timeline.js` → `timeline.ts`   | Type controls, certainty, event targets and modal lookups. Compare the raw filter string with canonical IDs without asserting it is a valid ID. Use numeric timestamps for sorting.                 |
+| `src/views/dashboard.js` → `dashboard.ts` | Type statistic-card parameters and timestamps; retain the existing description fallback and use the already-known card element in its listener.                                                     |
+| `src/views/workspace.js` → `workspace.ts` | Type form controls, nullable DOM access, selected values, and the existing stored draft shape. Keep confidence as a string, matching input values.                                                  |
+| `src/app.js` → `app.ts`                   | Type event binding and narrow input event targets.                                                                                                                                                  |
+| `src/data/data.ts`                        | Update imports only; loading, normalization and error handling are unchanged.                                                                                                                       |
+| `src/storage/storage.ts`                  | Update the state import only; preserve all storage keys and behavior.                                                                                                                               |
+| `src/navigation/navigation.ts`            | Update imports and express the existing allowed-view check as a type guard before calling the typed setter.                                                                                         |
+| `index.html`                              | Reference `app.ts` as the module entry; update its related comment.                                                                                                                                 |
+| `tsconfig.json`                           | Set `allowJs: false` and remove the obsolete `checkJs: false`. Keep the previous strictness and `src/**/*.ts` scope.                                                                                |
+| `EXERCISE_2.md`                           | Update only Demo 7: verified task checkboxes and concise question answers.                                                                                                                          |
+| `DEMO_7.md`                               | Record migration decisions, actual compiler findings and demonstration steps.                                                                                                                       |
 
 `src/data/types.ts`, original JSON, styles, package/lock files, Vite configuration and ESLint configuration are unchanged. Tool configuration files remain JavaScript; Demo 7 migrates the application source, not Node tooling configuration.
 
@@ -84,22 +84,22 @@ These diagnostics occurred during migration; none were invented just for documen
 
 The unchanged Demo 6 checkout (`ea9236d`) was tested in headless Edge before editing. The same browser flow was run against migrated Vite development and production preview, then the recorded UI results were compared with assertions. The existing external browser test tools were reused; no project test dependency was installed.
 
-| Check | Actual result |
-| --- | --- |
-| `npm run typecheck` | Pass: full source migration compiles under `strict: true`. |
-| `npm run lint` | Pass after combining duplicate value/type imports. |
-| `npm exec --no -- prettier --check "src/**/*.{js,ts}"` | Pass; this is the equivalent of `format:check`, which this project does not define. |
-| `npm run build` | Pass: type checking plus production bundling. |
-| `npm run dev -- --host 127.0.0.1 --port 5176 --strictPort` | Starts; TypeScript watcher reports zero errors. |
-| `npm exec --no -- vite preview --host 127.0.0.1 --port 4176 --strictPort` | Starts; built application tested. |
-| Evidence | 18 cards; calibration search returns 7; type/person/location/status/relevance filters, title sorting, details, bookmarks and saved notes match baseline. |
-| People/Locations | Six people and six locations; Nova has five linked items and the same five Evidence results, including E04. |
-| Timeline | 15 events; reversed ordering, filters, modal and full-evidence navigation match baseline. |
-| Workspace/storage | Notes/bookmarks display and survive reload; bookmark links open detail; confidence displays 72 after input. |
-| Targeted migration checks | People/location fallback text is unchanged; an existing stored hypothesis draft restores its person, evidence selection, confidence and text; invalid URL hashes still select Dashboard. Verified in development and preview. |
-| Network/Console | All five JSON resources return 200, logo loads, and no new runtime/Console errors occur. Existing `/favicon.ico` 404 remains. |
-| Demo 6 normalization | Raw E04 still contains `Nova Byte`; development state contains `nova-byte`. |
-| CSS HMR | Still updates without document navigation and preserves unsaved text, route and local storage; temporary CSS edit restored. |
+| Check                                                                     | Actual result                                                                                                                                                                                                                 |
+| ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm run typecheck`                                                       | Pass: full source migration compiles under `strict: true`.                                                                                                                                                                    |
+| `npm run lint`                                                            | Pass after combining duplicate value/type imports.                                                                                                                                                                            |
+| `npm exec --no -- prettier --check "src/**/*.{js,ts}"`                    | Pass; this is the equivalent of `format:check`, which this project does not define.                                                                                                                                           |
+| `npm run build`                                                           | Pass: type checking plus production bundling.                                                                                                                                                                                 |
+| `npm run dev -- --host 127.0.0.1 --port 5176 --strictPort`                | Starts; TypeScript watcher reports zero errors.                                                                                                                                                                               |
+| `npm exec --no -- vite preview --host 127.0.0.1 --port 4176 --strictPort` | Starts; built application tested.                                                                                                                                                                                             |
+| Evidence                                                                  | 18 cards; calibration search returns 7; type/person/location/status/relevance filters, title sorting, details, bookmarks and saved notes match baseline.                                                                      |
+| People/Locations                                                          | Six people and six locations; Nova has five linked items and the same five Evidence results, including E04.                                                                                                                   |
+| Timeline                                                                  | 15 events; reversed ordering, filters, modal and full-evidence navigation match baseline.                                                                                                                                     |
+| Workspace/storage                                                         | Notes/bookmarks display and survive reload; bookmark links open detail; confidence displays 72 after input.                                                                                                                   |
+| Targeted migration checks                                                 | People/location fallback text is unchanged; an existing stored hypothesis draft restores its person, evidence selection, confidence and text; invalid URL hashes still select Dashboard. Verified in development and preview. |
+| Network/Console                                                           | All five JSON resources return 200, logo loads, and no new runtime/Console errors occur. Existing `/favicon.ico` 404 remains.                                                                                                 |
+| Demo 6 normalization                                                      | Raw E04 still contains `Nova Byte`; development state contains `nova-byte`.                                                                                                                                                   |
+| CSS HMR                                                                   | Still updates without document navigation and preserves unsaved text, route and local storage; temporary CSS edit restored.                                                                                                   |
 
 Existing Dashboard generated content remains empty and the hypothesis Save button still does not persist its draft, exactly as in the before-migration browser run. These previously documented bugs were not repaired as part of a behavior-preserving migration. Runtime JSON/storage schema validation also remains outside this demo.
 

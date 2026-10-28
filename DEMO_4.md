@@ -99,6 +99,7 @@ Run commands in mystery-road-awe-2026.
 
    Expect prefer-const, exit code 1, and no automatic source edit. Explain that
    mutating properties does not require reassigning the object binding.
+
 3. Run:
 
    ```powershell
@@ -107,14 +108,18 @@ Run commands in mystery-road-awe-2026.
 
    Show let automatically becoming const. Lint now passes. Other errors such as
    an undefined name may require manual correction; --fix does not fix everything.
+
 4. In that same file temporarily collapse the setter to:
 
    ```js
-   export function setAllEvidence(data){allEvidence=data;}
+   export function setAllEvidence(data) {
+     allEvidence = data;
+   }
    ```
 
    Save, then run `npm run format`. Show the restored spaces and multiline body.
    This formatting edit is separate from the linter's binding check.
+
 5. Run final checks:
 
    ```powershell
@@ -126,6 +131,7 @@ Run commands in mystery-road-awe-2026.
    All should succeed. Review `git diff -- src/state/state.js` against the committed
    baseline. Once Demo 4 itself is committed, the temporary demo edits should leave
    no diff after fixing and formatting them.
+
 6. For browser regression evidence, use the existing http://127.0.0.1:5173/ or start:
 
    ```powershell

@@ -4,9 +4,7 @@ type TimelineEventCardProps = {
   event: TimelineEvent;
 };
 
-export function TimelineEventCard({
-  event,
-}: TimelineEventCardProps) {
+export function TimelineEventCard({ event }: TimelineEventCardProps) {
   return (
     <div className="card">
       <p>Event ID: {event.id}</p>

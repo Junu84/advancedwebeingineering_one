@@ -17,22 +17,22 @@ This exercise corresponds to the following chapters in the course manuscript:
 ## Self-Check
 
 The exercise is organized into 10 individual tasks with corresponding questions, that are
-presented in class. 
+presented in class.
 
 These checkboxes are for self-checking. Don't forget to do the actual checking of tasks you are able to present in the Moodle course. **Before class, tick only what you can genuinely demonstrate or answer on the spot, live.**
 
-| # | Demo | Ready? |
-|---|---|---|
-| 1 | Historical view of the web | ☐ |
-| 2 | SSR vs. CSR | ☐ |
-| 3 | The virtual DOM | ☐ |
-| 4 | SPA vs. MPA: state & routing | ☐ |
-| 5 | React introduction | ☐ |
-| 6 | React + TypeScript entry point in the Vite project | ☐ |
-| 7 | Component hierarchy for the whole app | ☐ |
-| 8 | Architecture Decision Record: why SPA/React | ☐ |
-| 9 | Migrate the application shell | ☐ |
-| 10 | Migrate the Dashboard view | ☐ |
+| #   | Demo                                               | Ready? |
+| --- | -------------------------------------------------- | ------ |
+| 1   | Historical view of the web                         | ☐      |
+| 2   | SSR vs. CSR                                        | ☐      |
+| 3   | The virtual DOM                                    | ☐      |
+| 4   | SPA vs. MPA: state & routing                       | ☐      |
+| 5   | React introduction                                 | ☐      |
+| 6   | React + TypeScript entry point in the Vite project | ☐      |
+| 7   | Component hierarchy for the whole app              | ☐      |
+| 8   | Architecture Decision Record: why SPA/React        | ☐      |
+| 9   | Migrate the application shell                      | ☐      |
+| 10  | Migrate the Dashboard view                         | ☐      |
 
 A demo only counts as "Ready" once **every** task and question checkbox inside it (below) is
 ticked — the table above is just a fast overview, tick the boxes inside each demo first.
@@ -45,19 +45,17 @@ ticked — the table above is just a fast overview, tick the boxes inside each d
 
 - [ ] Give a concise explanation of how web applications evolved over the years and place the app from the exercises on the timeline. Justify where you put it.
 
-Era                     Main idea
+Era Main idea
 
 Static HTML -> Server sends fixed HTML pages.
 Server-rendered web -> Server generates HTML; navigation normally reloads the page.
-AJAX / jQuery -> JavaScript can fetch data and update parts of the page without a full reload. 
-SPA ->  One page stays loaded; JavaScript controls views, state and navigation.
+AJAX / jQuery -> JavaScript can fetch data and update parts of the page without a full reload.
+SPA -> One page stays loaded; JavaScript controls views, state and navigation.
 Modern frameworks -> React etc. structure SPAs using components and systematic UI updates.
-
 
 **Questions** (depend on the tasks above)
 
 - [ ] What specific problem was AJAX (and libraries like jQuery) solving that plain server-rendered pages couldn't? What new problems did that approach introduce, that SPA frameworks then tried to solve?
-
 
 - [ ] This app currently uses hash-based routing (`#dashboard`, `#evidence`, ...) with no full page reload between views. Which era does that pattern belong to, and what does it tell you about when this architectural choice became common?
 
@@ -72,15 +70,14 @@ Modern frameworks -> React etc. structure SPAs using components and systematic U
                          SSR | CSR |
 
 | Rendering happens | Server | Browser |
-| First request     | Server sends rendered HTML | Server sends app shell + JS |
-| Browser work      | Mostly display HTML | Execute JS and build/update UI |
-| Initial content   | Usually available directly in HTML | May depend on JavaScript |
-| Navigation        | Often new server request/page | Usually JS changes current view without full reload |
+| First request | Server sends rendered HTML | Server sends app shell + JS |
+| Browser work | Mostly display HTML | Execute JS and build/update UI |
+| Initial content | Usually available directly in HTML | May depend on JavaScript |
+| Navigation | Often new server request/page | Usually JS changes current view without full reload |
 | JavaScript disabled | Core content may still work | App may be unusable/incomplete |
 
-
 - [ ] Pick one real, publicly known website and argue whether it's (primarily) SSR or CSR, using
-observable evidence (view source, network tab, etc.).
+      observable evidence (view source, network tab, etc.).
 
 **Questions** (depend on the tasks above)
 
@@ -95,8 +92,7 @@ observable evidence (view source, network tab, etc.).
 
 - [ ] In your own words (a few sentences, not a copied definition), explain what the virtual DOM is and what problem it solves.
 
-
-- [ ] Find one concrete example in the *original* vanilla `app.js` (from before Exercise 1) where a small state change (e.g. toggling one bookmark) caused a large chunk of real DOM to be recreated via `innerHTML`, even though only a tiny part of it actually needed to change.
+- [ ] Find one concrete example in the _original_ vanilla `app.js` (from before Exercise 1) where a small state change (e.g. toggling one bookmark) caused a large chunk of real DOM to be recreated via `innerHTML`, even though only a tiny part of it actually needed to change.
 
 **Questions** (depend on the tasks above)
 
@@ -110,13 +106,13 @@ observable evidence (view source, network tab, etc.).
 
 **Tasks**
 
-- [ ] Diagram or illustrate live how navigation currently works in this app: what triggers a view change, what code runs, and what does *not* happen (that would happen in a classic multi-page site).
+- [ ] Diagram or illustrate live how navigation currently works in this app: what triggers a view change, what code runs, and what does _not_ happen (that would happen in a classic multi-page site).
 - [ ] List every piece of state in the current app that would be lost on a full page reload, versus what's preserved (hint: check what's in `localStorage` versus what's only in memory).
 
 **Questions** (depend on the tasks above)
 
 - [ ] In a traditional multi-page app, where does "the current page's data" live between requests? Where does it live in this SPA instead, and what are the consequences of that difference (for good and for bad)?
-- [ ] This app currently implements routing by hand (`handleHashChange()`, a `switch`-like chain of `if`s, and manually toggling CSS classes). What is a router library actually responsible for that this hand-rolled version does *not* handle?
+- [ ] This app currently implements routing by hand (`handleHashChange()`, a `switch`-like chain of `if`s, and manually toggling CSS classes). What is a router library actually responsible for that this hand-rolled version does _not_ handle?
 - [ ] If the user hits the browser's back button right now, what happens in this app, and why?
 
 ---
@@ -133,7 +129,7 @@ observable evidence (view source, network tab, etc.).
 - [ ] What is JSX, actually? What does it compile to?
 - [ ] Compare your tiny component to the old `renderEvidenceCardHTML(ev)` function (string concatenation returning an HTML string). What is fundamentally different about how each one's output becomes real DOM?
 - [ ] What does it mean that "components are just functions" in React? What would break if a
-component's function body had a side effect (e.g. mutated a global variable) every time it rendered?
+      component's function body had a side effect (e.g. mutated a global variable) every time it rendered?
 
 ---
 
@@ -143,7 +139,7 @@ component's function body had a side effect (e.g. mutated a global variable) eve
 
 - [ ] Add React and TypeScript support to the existing Vite project from Exercise 2 (the right Vite plugin, `tsx` support, React types).
 - [ ] Create a minimal entry point (e.g. a root `<App />` component mounted into the page) that
-renders *something* visible, without removing the working vanilla app yet.
+      renders _something_ visible, without removing the working vanilla app yet.
 - [ ] Decide and document how the two versions coexist during the migration (e.g. a separate route/ flag to view the React version, or a full swap-over. Your call, but be ready to justify it).
 
 **Questions** (depend on the tasks above)
@@ -161,8 +157,8 @@ renders *something* visible, without removing the working vanilla app yet.
 - [ ] Design and diagram a proposed component hierarchy for the **entire application**, not just the part you're building this exercise. E.g. pages (one per current view) and the reusable components you expect to extract (cards, badges, buttons, form controls, etc.), even though most of them won't be built until Exercises 4 and 5.
 
 ![alt text](image.png)
-- [ ] For at least 5 components in your diagram, briefly note what data/props each one would need and where that data comes from.
 
+- [ ] For at least 5 components in your diagram, briefly note what data/props each one would need and where that data comes from.
 
 ![alt text](image-3.png)
 
@@ -180,12 +176,12 @@ renders *something* visible, without removing the working vanilla app yet.
 
 **Tasks**
 
-- [ ] Argue whether an SPA built with React is actually the right architecture for *this specific app*, given what it does.
+- [ ] Argue whether an SPA built with React is actually the right architecture for _this specific app_, given what it does.
 - [ ] Include honest trade-offs or downsides of the SPA/React choice for this app, not just the benefits.
 
 **Questions** (depend on the tasks above)
 
-- [ ] What would you lose by keeping this app as server-rendered vanilla HTML/JS instead? What would you lose by choosing React specifically over a *different* SPA approach (e.g. vanilla JS with a router, or a lighter library)?
+- [ ] What would you lose by keeping this app as server-rendered vanilla HTML/JS instead? What would you lose by choosing React specifically over a _different_ SPA approach (e.g. vanilla JS with a router, or a lighter library)?
 - [ ] If this app needed to support users on very low-end devices or poor connections as a hard requirement, would you stick with SPA or change the architecture? Why or why not?
 
 ---
@@ -200,7 +196,7 @@ renders *something* visible, without removing the working vanilla app yet.
 **Questions** (depend on the tasks above)
 
 - [ ] How does "the current view" get tracked in your React shell? Compare this directly to how `currentPage` and `handleHashChange()` did it in the vanilla version? What's actually
-different, and what's superficially different but conceptually the same?
+      different, and what's superficially different but conceptually the same?
 - [ ] What happens in your shell if a user navigates to a view that doesn't exist? How does that compare to the vanilla app's fallback-to-dashboard behavior?
 
 ---
@@ -210,17 +206,17 @@ different, and what's superficially different but conceptually the same?
 **Tasks**
 
 - [ ] Rebuild the Dashboard view as React components (using your hierarchy from Demo 7 as a starting point), rendering the case summary, stat cards, review progress, and the recent
-evidence/timeline lists. Reading from the same data your app already loads.
+      evidence/timeline lists. Reading from the same data your app already loads.
 - [ ] Confirm it renders correctly with real data, and that navigating away and back doesn't lose or corrupt anything.
 
 **Questions** (depend on the tasks above)
 
 - [ ] Where does the Dashboard's data (case info, evidence, timeline) come from in your React version, and how does it get to the components that render it? Is this the final architecture you intend to keep, or a placeholder you know you'll change in a later exercise?
-- [ ] The old vanilla dashboard had a real bug where it could show stale numbers because it only re-rendered on a view's *first* visit (a manual render-cache flag). Does your React version have an equivalent risk? Why or why not, given how React re-renders?
-- [ ] What, if anything, does your React Dashboard do differently from the vanilla one in terms of *when* it recalculates derived values (like the review-progress percentage)?
+- [ ] The old vanilla dashboard had a real bug where it could show stale numbers because it only re-rendered on a view's _first_ visit (a manual render-cache flag). Does your React version have an equivalent risk? Why or why not, given how React re-renders?
+- [ ] What, if anything, does your React Dashboard do differently from the vanilla one in terms of _when_ it recalculates derived values (like the review-progress percentage)?
 
 ---
 
 ## What to bring to class
 
-For each of the 10 demos: your changed code/diagrams/documents (ideally as commits you can show live), and the ticked checkboxes above reflecting what you can genuinely demonstrate and answer *right now*.
+For each of the 10 demos: your changed code/diagrams/documents (ideally as commits you can show live), and the ticked checkboxes above reflecting what you can genuinely demonstrate and answer _right now_.

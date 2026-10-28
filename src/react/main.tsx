@@ -1,4 +1,3 @@
-
 import { createRoot } from 'react-dom/client';
 import { loadReactData } from '../data/data.ts';
 import App from './App';
@@ -20,7 +19,6 @@ async function initReactApp() {
         <App />
       </BrowserRouter>,
     );
-
   } catch (error) {
     console.error('Failed to initialize React:', error);
   }

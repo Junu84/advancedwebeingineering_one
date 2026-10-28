@@ -1,4 +1,3 @@
-
 type PersonCardProps = {
   name: string;
   role: string;
@@ -6,11 +5,7 @@ type PersonCardProps = {
 };
 
 // Function component with typed props
-export function PersonCard({
-  name,
-  role,
-  evidenceCount,
-}: PersonCardProps) {
+export function PersonCard({ name, role, evidenceCount }: PersonCardProps) {
   return (
     <div className="col-md-4 mb-3">
       <div className="card h-100">
@@ -23,9 +18,7 @@ export function PersonCard({
             {role || 'Role unspecified'}
           </h6>
 
-          <p className="card-text small">
-            No description available.
-          </p>
+          <p className="card-text small">No description available.</p>
         </div>
 
         <div className="card-footer bg-transparent border-0 pt-0">
