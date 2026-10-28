@@ -1,63 +1,75 @@
-import { useEffect, useState } from 'react';
-import Dashboard from './Dashboard';
 
-type ViewId = 'dashboard' | 'evidence' | 'people' | 'timeline' | 'workspace';
+import { NavLink, Routes, Route, Navigate } from 'react-router-dom';
 
-const VALID_VIEWS: ViewId[] = [
-  'dashboard',
-  'evidence',
-  'people',
-  'timeline',
-  'workspace',
-];
-
-function getViewFromHash(): ViewId {
-  const hash = window.location.hash.replace('#', '');
-
-  return VALID_VIEWS.includes(hash as ViewId)
-    ? (hash as ViewId)
-    : 'dashboard';
-}
+import Dashboard from './dashboard/Dashboard';
+import PeopleView from './people-locations/PeopleView';
+import PersonalDetail from './people-locations/PersonalDetail';
+import TimelineView from './timeline/TimelineView';
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<ViewId>(getViewFromHash());
-
-  useEffect(() => {
-    function handleHashChange() {
-      setCurrentView(getViewFromHash());
-    }
-
-    window.addEventListener('hashchange', handleHashChange);
-
-    return () => {
-      window.removeEventListener('hashchange', handleHashChange);
-    };
-  }, []);
-
-  function navigateTo(view: ViewId) {
-    window.location.hash = view;
-  }
-
   return (
     <>
       <header>
         <h1>Project ReMotion</h1>
       </header>
 
-      <nav>
-        <button onClick={() => navigateTo('dashboard')}>Dashboard</button>
-        <button onClick={() => navigateTo('evidence')}>Evidence</button>
-        <button onClick={() => navigateTo('people')}>People</button>
-        <button onClick={() => navigateTo('timeline')}>Timeline</button>
-        <button onClick={() => navigateTo('workspace')}>Workspace</button>
+      <nav className="react-nav">
+        <NavLink to="/dashboard">Dashboard</NavLink>
+        <NavLink to="/evidence">Evidence</NavLink>
+        <NavLink to="/team/people">People</NavLink>
+        <NavLink to="/team/locations">Locations</NavLink>
+        <NavLink to="/timeline">Timeline</NavLink>
+        <NavLink to="/workspace">Workspace</NavLink>
       </nav>
 
       <main>
-        {currentView === 'dashboard' && <h2>Dashboard</h2>}
-        {currentView === 'evidence' && <h2>Evidence</h2>}
-        {currentView === 'people' && <h2>People</h2>}
-        {currentView === 'timeline' && <h2>Timeline</h2>}
-        {currentView === 'workspace' && <h2>Workspace</h2>}
+        <Routes>
+          <Route
+            path="/"
+            element={<Navigate to="/dashboard" replace />}
+          />
+
+          <Route
+            path="/dashboard"
+            element={<Dashboard />}
+          />
+
+          <Route
+            path="/evidence"
+            element={<h2>Evidence</h2>}
+          />
+
+          <Route
+            path="/team/people"
+            element={<PeopleView mode="people" />}
+          />
+
+          /* Demo 9: Dynamic route parameters */
+         <Route
+          path="/team/people/:personId"
+          element={<PersonalDetail />}
+        />
+
+          <Route
+            path="/team/locations"
+            element={<PeopleView mode="locations" />}
+          />
+
+          <Route
+            path="/timeline"
+            element={<TimelineView />}
+          />
+
+          <Route
+            path="/workspace"
+            element={<h2>Workspace</h2>}
+          />
+
+          <Route
+            path="*"
+            element={<Navigate to="/dashboard" replace />}
+          />
+        </Routes>
       </main>
     </>
   );

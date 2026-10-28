@@ -1,4 +1,83 @@
-# Demo 8 — GitHub Actions development workflow
+# Exercise 4 — Demo 8: React Router
+
+## Implementation and files changed
+
+React Router (`react-router-dom`, already installed) uses one BrowserRouter with clean URLs. Existing App.tsx already has Routes, Route, NavLink and Navigate, including the required routes and wildcard redirect. Its active-link CSS remains intact. PeopleView's typed mode prop, stable keys, mapped collections, feature folders and shared Card remain unchanged. No Demo 9 or 10 features were added.
+
+Root cause: index.html previously started React only with `?mode=react`. Vite's history fallback served that file for `/timeline`, starting vanilla. Client navigation from the React entry could look correct until refresh. Relative React data fetches also resolved under `/team/data/` on nested routes, and Dashboard statistics still changed the hash.
+
+Files changed in this task:
+
+- `index.html`: React is the default entry with root-relative script and CSS URLs.
+- `react.html`: retain the React alias with root-relative URLs.
+- `vanilla.html` (new): preserve the former vanilla interface and start only src/app.ts.
+- `vite.config.js`: build all three HTML entries; preserve runtime assets/data copying; generate dist/404.html from the React index for GitHub Pages.
+- `src/react/main.tsx`: preserve awaited loadReactData before rendering one BrowserRouter; remove obsolete vanilla overlay manipulation.
+- `src/react/dashboard/Dashboard.tsx`: use typed React Router Links for statistics, with distinct People and Locations destinations.
+- `src/data/data.ts`: make only React initialization's five JSON fetches root-relative; retain vanilla loaders.
+- `DEMO_8.md`: add this record; preserve the earlier Exercise 2 documentation below.
+
+## Routes
+
+| URL | Result |
+| --- | --- |
+| `/dashboard` | React Dashboard |
+| `/team/people` | PeopleView mode="people", People cards |
+| `/team/locations` | PeopleView mode="locations", Location cards only |
+| `/timeline` | TimelineView, mapped event cards |
+| `/` or an unknown path | Navigate to /dashboard with replace |
+| `/evidence`, `/workspace` | Existing placeholders |
+| `/vanilla.html#dashboard` | Original vanilla application |
+
+The URL selects the collection; there is no local toggle state to synchronize. NavLink preserves active navigation styling. The wildcard redirect replaces the invalid history entry.
+
+## Hosting
+
+Vite dev and preview support the clean-route fallback, verified at HTTP level. The existing `base: '/'` targets hosting at the origin root. Conventional static servers should serve existing files normally and rewrite other page requests to /index.html.
+
+The GitHub Pages build now includes React 404.html so Pages can serve the shell for direct routes (the server returns HTTP 404, then React Router handles the path). Remote deployment is NOT TESTED. The existing workflow triggers only on exercise-2, not the current exercise-4 branch. A repository-subpath deployment additionally needs coordinated Vite base, BrowserRouter basename and runtime data URLs; the existing root-base configuration does not support that setup. No deployment was performed.
+
+References: [BrowserRouter](https://reactrouter.com/api/declarative-routers/BrowserRouter), [Vite build and HTML entries](https://vite.dev/guide/build.html).
+
+## Verification — 2026-10-28
+
+| Check | Result |
+| --- | --- |
+| npm run typecheck | PASS |
+| npm run lint | PASS; existing ESLint patterns cover JS/TS, not TSX; TypeScript checks TSX |
+| npm run build | PASS; nonfatal React Router use-client bundler warnings |
+| Dev HTTP: all five required routes | PASS: HTTP 200 and React entry, including nested paths and invalid URL |
+| Preview HTTP: all five required routes | PASS: HTTP 200 and built React entry |
+| Dev/preview react.html and vanilla.html | PASS: correct separate application entries |
+| Dev/preview JSON endpoints | PASS: case metadata, 6 people, 6 locations, 18 evidence items, 15 timeline events |
+| Actual rendered content and vanilla functionality | NOT TESTED in browser |
+| Navigation clicks and active styling | NOT TESTED in browser |
+| Direct browser URL entry and refresh of every route | NOT TESTED in browser; HTTP entry handling checked separately |
+| Browser Back and Forward | NOT TESTED |
+| Client-side unknown-route redirect | NOT TESTED in browser; wildcard code inspected |
+| Remote deployment | NOT TESTED |
+
+Browser verification was attempted through the available computer-use tool. It reported no browsers/apps and an unavailable native pipe. HTTP checks do not execute React and are not browser-test passes.
+
+## Demonstration for the professor
+
+1. Run npm run dev and open http://localhost:5173/dashboard.
+2. Click People, Locations and Timeline. Show changing paths, active links and each collection. Also try Dashboard's People and Locations statistic links.
+3. Paste each of /dashboard, /team/people, /team/locations and /timeline directly into the address bar, then refresh. Confirm React and populated content each time.
+4. Navigate Dashboard to People to Locations to Timeline. Use Back twice and Forward twice; confirm path, active link and content match.
+5. Open http://localhost:5173/invalid-route and confirm the URL becomes /dashboard. Back should skip the replaced invalid entry.
+6. Open http://localhost:5173/vanilla.html#dashboard and demonstrate the preserved vanilla interface. Its hash navigation is isolated from React.
+7. Run npm run build, then npm exec -- vite preview --port 4173, and repeat against http://localhost:4173.
+
+**Q1: Why real People and Locations routes instead of internal state?** A bookmark or shared link opens the exact collection. Refresh and browser Back/Forward preserve the selection without custom synchronization code.
+
+**Q2: What happens for an unmatched URL, compared with vanilla?** React's wildcard renders Navigate and replaces the URL with /dashboard. Vanilla handleHashChange chose Dashboard for an invalid hash, updated global state and manually toggled/rendered DOM sections, while leaving the invalid hash in the address bar.
+
+Git safety: remained on exercise-4 with existing changes; no reset, branch switch, commit or push. The parent workspace is on exercise1 and its project submodule was already dirty.
+
+---
+
+# Preserved Exercise 2 — Demo 8: GitHub Actions development workflow
 
 ## Implementation
 

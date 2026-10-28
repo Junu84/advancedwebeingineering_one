@@ -163,6 +163,9 @@ renders *something* visible, without removing the working vanilla app yet.
 ![alt text](image.png)
 - [ ] For at least 5 components in your diagram, briefly note what data/props each one would need and where that data comes from.
 
+
+![alt text](image-3.png)
+
 ![alt text](image-1.png)
 ![alt text](image-2.png)
 **Questions** (depend on the tasks above)

@@ -1,43 +1,39 @@
+import { Link } from 'react-router-dom';
 import {
   allEvidence,
   allPeople,
   allLocations,
   allTimeline,
   caseData,
-  type ViewId,
-} from '../state/state.ts';
+} from '../../state/state.ts';
 
-import { formatDate, getStatusBadgeClass } from '../utils/utils.ts';
+import { formatDate, getStatusBadgeClass } from '../../utils/utils.ts';
 
 type StatCardProps = {
   title: string;
   value: number;
   colorClass: string;
-  targetView: ViewId;
+  to: '/evidence' | '/team/people' | '/team/locations';
 };
 
 function StatCard({
   title,
   value,
   colorClass,
-  targetView,
+  to,
 }: StatCardProps) {
-  function handleClick() {
-    window.location.hash = targetView;
-  }
-
   return (
     <div className="col-md-2 col-sm-4 mb-3">
-      <div
+      <Link
+        to={to}
         className="card stat-card text-center h-100"
-        style={{ cursor: 'pointer' }}
-        onClick={handleClick}
+        style={{ textDecoration: 'none', color: 'inherit' }}
       >
         <div className="card-body">
           <h6 className="card-subtitle mb-2 text-muted">{title}</h6>
           <h3 className={`card-title ${colorClass} mb-0`}>{value}</h3>
         </div>
-      </div>
+      </Link>
     </div>
   );
 }
@@ -87,35 +83,35 @@ export default function Dashboard() {
           title="Total Evidence"
           value={totalEvidence}
           colorClass="text-primary"
-          targetView="evidence"
+          to="/evidence"
         />
 
         <StatCard
           title="Reviewed"
           value={reviewedCount}
           colorClass="text-success"
-          targetView="evidence"
+          to="/evidence"
         />
 
         <StatCard
           title="Flagged"
           value={flaggedCount}
           colorClass="text-danger"
-          targetView="evidence"
+          to="/evidence"
         />
 
         <StatCard
           title="People"
           value={totalPeople}
           colorClass="text-info"
-          targetView="people"
+          to="/team/people"
         />
 
         <StatCard
           title="Locations"
           value={totalLocations}
           colorClass="text-warning"
-          targetView="people"
+          to="/team/locations"
         />
       </div>
 

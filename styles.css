@@ -819,3 +819,22 @@ a:focus-visible {
   .header-inner { flex-direction: column; align-items: flex-start; }
   .detail-field strong { min-width: auto; display: block; }
 }
+.react-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.react-nav a {
+  padding: 10px 16px;
+  border: 1px solid #94a3b8;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #1e293b;
+}
+
+.react-nav a.active {
+  background-color: #2563eb;
+  color: white;
+}

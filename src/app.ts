@@ -98,4 +98,12 @@ async function initApp() {
 }
 
 // Application Lifecycle Bootstrap
-window.addEventListener('DOMContentLoaded', initApp);
+
+ // Application Lifecycle Bootstrap
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', () => {
+    void initApp();
+  }, { once: true });
+} else {
+  void initApp();
+}

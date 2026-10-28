@@ -63,6 +63,7 @@ export async function loadCorePeopleAndLocations(): Promise<void> {
     const peopleRes = await fetch('./data/people.json');
     const peopleJson: Person[] = await peopleRes.json();
     setAllPeople(peopleJson);
+    console.log('People loaded from JSON:', peopleJson.length);
 
     const locationsRes = await fetch('./data/locations.json');
     const locationsJson: Location[] = await locationsRes.json();
@@ -138,4 +139,66 @@ export async function loadAllData(): Promise<void> {
 
   await loadCorePeopleAndLocations();
   await Promise.all([loadEvidenceData(), loadTimelineData()]);
+}
+
+export async function loadReactData(): Promise<void> {
+  // Load case metadata
+  const caseRes = await fetch('/data/case.json');
+  if (!caseRes.ok) {
+    throw new Error('Failed to load case.json');
+  }
+  const caseJson: CaseMetadata = await caseRes.json();
+  setCaseData(caseJson);
+
+  // Load people
+  const peopleRes = await fetch('/data/people.json');
+  if (!peopleRes.ok) {
+    throw new Error('Failed to load people.json');
+  }
+  const peopleJson: Person[] = await peopleRes.json();
+  setAllPeople(peopleJson);
+  console.log('People loaded from JSON:', peopleJson.length);
+
+  // Load locations
+  const locationsRes = await fetch('/data/locations.json');
+  if (!locationsRes.ok) {
+    throw new Error('Failed to load locations.json');
+  }
+  const locationsJson: Location[] = await locationsRes.json();
+  setAllLocations(locationsJson);
+
+  // Load evidence
+  const evidenceRes = await fetch('/data/evidence.json');
+  if (!evidenceRes.ok) {
+    throw new Error('Failed to load evidence.json');
+  }
+
+  const rawEvidence: RawEvidence[] = await evidenceRes.json();
+
+  const evidence: Evidence[] = rawEvidence.map((item) => ({
+    ...item,
+    personIds: item.personIds.map((reference) => {
+      const person = peopleJson.find(
+        (p) => p.id === reference || p.name === reference,
+      );
+
+      if (!person) {
+        throw new Error(`Unknown person reference: ${reference}`);
+      }
+
+      return person.id;
+    }),
+  }));
+
+  setAllEvidence(evidence);
+  setFilteredEvidence(evidence);
+
+  // Load timeline
+  const timelineRes = await fetch('/data/timeline.json');
+  if (!timelineRes.ok) {
+    throw new Error('Failed to load timeline.json');
+  }
+
+  const timelineJson: TimelineEvent[] = await timelineRes.json();
+  setAllTimeline(timelineJson);
 }
