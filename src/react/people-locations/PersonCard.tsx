@@ -1,32 +1,51 @@
+
+import type { Person } from '../../data/types.ts';
+
 type PersonCardProps = {
-  name: string;
-  role: string;
+  person: Person;
   evidenceCount: number;
 };
 
-// Function component with typed props
-export function PersonCard({ name, role, evidenceCount }: PersonCardProps) {
+// DEMO 5: Presentational component.
+// Receives data through typed props and only displays the UI.
+export function PersonCard({
+  person,
+  evidenceCount,
+}: PersonCardProps) {
   return (
-    <div className="col-md-4 mb-3">
-      <div className="card h-100">
-        <div className="card-body">
-          {/* Display person's name */}
-          <h5 className="card-title">{name}</h5>
+    <article className="person-card">
+      <div className="person-card-header">
+        <img
+          src={`/${person.avatar.replace(/^\/+/, '')}`}
+          alt={person.name}
+          className="person-avatar"
+        />     
 
-          {/* Fallback if role is empty */}
-          <h6 className="card-subtitle mb-2 text-muted">
-            {role || 'Role unspecified'}
-          </h6>
-
-          <p className="card-text small">No description available.</p>
-        </div>
-
-        <div className="card-footer bg-transparent border-0 pt-0">
-          <span className="badge bg-secondary">
-            {evidenceCount} linked evidence item(s)
-          </span>
+        <div>
+          <h3>{person.name}</h3>
+          <p>{person.role}</p>
         </div>
       </div>
-    </div>
+
+      <p>
+        <strong>Speciality:</strong> {person.speciality}
+      </p>
+
+      <ul>
+        {person.responsibilities.map((responsibility) => (
+          <li key={responsibility}>
+            {responsibility}
+          </li>
+        ))}
+      </ul>
+
+      <blockquote>
+        "{person.statement}"
+      </blockquote>
+
+      <p>{person.background}</p>
+
+      <p>{evidenceCount} related evidence items</p>
+    </article>
   );
 }

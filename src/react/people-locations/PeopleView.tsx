@@ -4,9 +4,12 @@ import { Card } from '../components/Card';
 import { LocationCard } from './LocationCard';
 import PeopleList from './PeopleList';
 
+// Feature component- coordinates daa and view selection
 type PeopleViewProps = {
   mode: 'people' | 'locations';
 };
+
+// erhält ein typed mode um zu entscheiden, ob die Personen oder die Orte angezeigt werden sollen
 
 export default function PeopleView({ mode }: PeopleViewProps) {
   return (
