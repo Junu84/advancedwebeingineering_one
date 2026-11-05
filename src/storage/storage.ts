@@ -3,11 +3,10 @@ import {
   notesStore,
   setNotesStore,
   STORAGE_KEY_NOTES,
+  STORAGE_KEY_BOOKMARKS,
   bookmarks,
   setBookmarks,
 } from '../state/state.ts';
-
-const STORAGE_KEY_BOOKMARKS = 'mystery_road_bookmarks';
 
 // --- BOOKMARKS STORAGE ---
 export function saveBookmarksToStorage(): void {
@@ -56,4 +55,29 @@ export function loadNoteAsync(evidenceId: string): Promise<string> {
   return new Promise<string>(function (resolve) {
     resolve(notesStore[evidenceId] || '');
   });
+}
+
+
+export function loadReactBookmarks(): string[] {
+  const raw = localStorage.getItem(STORAGE_KEY_BOOKMARKS);
+
+  if (!raw) return [];
+
+  try {
+    const parsed: unknown = JSON.parse(raw);
+
+    return Array.isArray(parsed) &&
+      parsed.every((id) => typeof id === 'string')
+      ? parsed
+      : [];
+  } catch {
+    return [];
+  }
+}
+
+export function saveReactBookmarks(bookmarks: string[]): void {
+  localStorage.setItem(
+    STORAGE_KEY_BOOKMARKS,
+    JSON.stringify(bookmarks)
+  );
 }

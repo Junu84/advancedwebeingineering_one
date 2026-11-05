@@ -44,9 +44,9 @@ export let modalCloseListenerCount = 0;
 // ---------------------------------------------------------------------
 // CONSTANTS
 // ---------------------------------------------------------------------
-export const STORAGE_KEY_BOOKMARKS = 'remotion_bookmarks';
-export const STORAGE_KEY_NOTES = 'remotion_notes';
-export const STORAGE_KEY_HYPOTHESIS = 'remotion_hypothesis';
+export const STORAGE_KEY_BOOKMARKS = 'mystery_road_bookmarks';
+export const STORAGE_KEY_NOTES = 'mystery_road_notes';
+export const STORAGE_KEY_HYPOTHESIS = 'mystery_road_hypothesis';
 
 // ---------------------------------------------------------------------
 // STATE SETTERS & MUTATORS

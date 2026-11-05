@@ -1,11 +1,46 @@
-import { NavLink, Routes, Route, Navigate } from 'react-router-dom';
+
+import { useState } from 'react';
+import {
+  NavLink,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
+
+import {
+  allEvidence,
+  allPeople,
+} from '../state/state.ts';
+
+import type { Evidence } from '../data/types';
 
 import Dashboard from './dashboard/Dashboard';
+import EvidenceView from './evidence/EvidenceView';
+import WorkspaceView from './workspace/WorkspaceView';
 import PeopleView from './people-locations/PeopleView';
 import PersonalDetail from './people-locations/PersonalDetail';
 import TimelineView from './timeline/TimelineView';
 
 export default function App() {
+  // Demo 6: App owns evidence review state
+  const [evidence, setEvidence] = useState<Evidence[]>(
+    () => [...allEvidence]
+  );
+
+  // Demo 6: Callback for review-status changes
+  function handleReviewStatusChange(
+    evidenceId: string,
+    newStatus: Evidence['status']
+  ) {
+    setEvidence((previousEvidence) =>
+      previousEvidence.map((item) =>
+        item.id === evidenceId
+          ? { ...item, status: newStatus }
+          : item
+      )
+    );
+  }
+
   return (
     <>
       <header>
@@ -23,19 +58,70 @@ export default function App() {
 
       <main>
         <Routes>
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/evidence" element={<h2>Evidence</h2>} />
-          <Route path="/team/people" element={<PeopleView mode="people" />} />
-          /* Demo 9: Dynamic route parameters */
-          <Route path="/team/people/:personId" element={<PersonalDetail />} />
+          <Route
+            path="/"
+            element={<Navigate to="/dashboard" replace />}
+          />
+
+          {/* Dashboard */}
+          <Route
+            path="/dashboard"
+            element={
+              <Dashboard evidence={evidence} />
+            }
+          />
+
+          {/* Evidence Catalogue */}
+          <Route
+            path="/evidence"
+            element={
+              <EvidenceView
+                evidence={evidence}
+                onReviewStatusChange={handleReviewStatusChange}
+              />
+            }
+          />
+
+          {/* People */}
+          <Route
+            path="/team/people"
+            element={<PeopleView mode="people" />}
+          />
+
+          {/* Person detail */}
+          <Route
+            path="/team/people/:personId"
+            element={<PersonalDetail />}
+          />
+
+          {/* Locations */}
           <Route
             path="/team/locations"
             element={<PeopleView mode="locations" />}
           />
-          <Route path="/timeline" element={<TimelineView />} />
-          <Route path="/workspace" element={<h2>Workspace</h2>} />
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+
+          {/* Timeline */}
+          <Route
+            path="/timeline"
+            element={<TimelineView />}
+          />
+
+          {/* Workspace */}
+          <Route
+            path="/workspace"
+            element={
+              <WorkspaceView
+                evidence={evidence}
+                people={allPeople}
+              />
+            }
+          />
+
+          {/* Fallback */}
+          <Route
+            path="*"
+            element={<Navigate to="/dashboard" replace />}
+          />
         </Routes>
       </main>
     </>
