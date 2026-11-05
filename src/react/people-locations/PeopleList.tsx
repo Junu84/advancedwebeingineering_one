@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { PersonCard } from './PersonCard.tsx';
 import type { Person, Evidence } from '../../data/types.ts';
@@ -10,10 +9,7 @@ type PeopleListProps = {
 
 // DEMO 5: Feature-specific list component.
 // Calculates evidence counts and delegates UI to PersonCard.
-export default function PeopleList({
-  people,
-  evidence,
-}: PeopleListProps) {
+export default function PeopleList({ people, evidence }: PeopleListProps) {
   if (people.length === 0) {
     return <p>No people found.</p>;
   }
@@ -21,8 +17,8 @@ export default function PeopleList({
   return (
     <div className="people-grid">
       {people.map((person) => {
-        const evidenceCount = evidence.filter(
-          (item) => item.personIds.includes(person.id)
+        const evidenceCount = evidence.filter((item) =>
+          item.personIds.includes(person.id),
         ).length;
 
         return (
@@ -31,10 +27,7 @@ export default function PeopleList({
             to={`/team/people/${person.id}`}
             className="person-link"
           >
-            <PersonCard
-              person={person}
-              evidenceCount={evidenceCount}
-            />
+            <PersonCard person={person} evidenceCount={evidenceCount} />
           </Link>
         );
       })}

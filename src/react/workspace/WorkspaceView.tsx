@@ -1,4 +1,3 @@
-
 import { useState, type ChangeEvent } from 'react';
 
 import type { Evidence, Person } from '../../data/types';
@@ -40,7 +39,7 @@ export default function WorkspaceView({
   // Update one field without mutating the other fields
   function updateField<K extends keyof HypothesisForm>(
     field: K,
-    value: HypothesisForm[K]
+    value: HypothesisForm[K],
   ) {
     setHypothesis((previous) => ({
       ...previous,
@@ -49,12 +48,10 @@ export default function WorkspaceView({
   }
 
   // Handle multiple evidence selections
-  function handleEvidenceChange(
-    event: ChangeEvent<HTMLSelectElement>
-  ) {
+  function handleEvidenceChange(event: ChangeEvent<HTMLSelectElement>) {
     const selectedIds = Array.from(
       event.target.selectedOptions,
-      (option) => option.value
+      (option) => option.value,
     );
 
     updateField('evidenceIds', selectedIds);
@@ -63,7 +60,7 @@ export default function WorkspaceView({
   // Demo 4 + Demo 8:
   // Derive bookmarked evidence from Context during render
   const bookmarkedEvidence = evidence.filter((item) =>
-    bookmarks.includes(item.id)
+    bookmarks.includes(item.id),
   );
 
   return (
@@ -72,7 +69,6 @@ export default function WorkspaceView({
 
       {/* Demo 2: Controlled hypothesis form */}
       <form onSubmit={(event) => event.preventDefault()}>
-
         {/* Suspect */}
         <div>
           <label htmlFor="suspect">Suspect</label>
@@ -80,17 +76,12 @@ export default function WorkspaceView({
           <select
             id="suspect"
             value={hypothesis.suspect}
-            onChange={(event) =>
-              updateField('suspect', event.target.value)
-            }
+            onChange={(event) => updateField('suspect', event.target.value)}
           >
             <option value="">Select a suspect</option>
 
             {people.map((person) => (
-              <option
-                key={person.id}
-                value={person.id}
-              >
+              <option key={person.id} value={person.id}>
                 {person.name}
               </option>
             ))}
@@ -104,9 +95,7 @@ export default function WorkspaceView({
           <select
             id="nature"
             value={hypothesis.nature}
-            onChange={(event) =>
-              updateField('nature', event.target.value)
-            }
+            onChange={(event) => updateField('nature', event.target.value)}
           >
             <option value="">Select nature</option>
             <option value="sabotage">Sabotage</option>
@@ -131,10 +120,7 @@ export default function WorkspaceView({
             }}
           >
             {evidence.map((item) => (
-              <option
-                key={item.id}
-                value={item.id}
-              >
+              <option key={item.id} value={item.id}>
                 {item.title}
               </option>
             ))}
@@ -156,49 +142,32 @@ export default function WorkspaceView({
             max="100"
             value={hypothesis.confidence}
             onChange={(event) =>
-              updateField(
-                'confidence',
-                Number(event.target.value)
-              )
+              updateField('confidence', Number(event.target.value))
             }
           />
         </div>
 
         {/* Explanation */}
         <div>
-          <label htmlFor="explanation">
-            Explanation
-          </label>
+          <label htmlFor="explanation">Explanation</label>
 
           <textarea
             id="explanation"
             rows={4}
             value={hypothesis.explanation}
-            onChange={(event) =>
-              updateField(
-                'explanation',
-                event.target.value
-              )
-            }
+            onChange={(event) => updateField('explanation', event.target.value)}
           />
         </div>
 
         {/* Alternative explanation */}
         <div>
-          <label htmlFor="alternative">
-            Alternative explanation
-          </label>
+          <label htmlFor="alternative">Alternative explanation</label>
 
           <textarea
             id="alternative"
             rows={4}
             value={hypothesis.alternative}
-            onChange={(event) =>
-              updateField(
-                'alternative',
-                event.target.value
-              )
-            }
+            onChange={(event) => updateField('alternative', event.target.value)}
           />
         </div>
       </form>
@@ -212,9 +181,7 @@ export default function WorkspaceView({
         ) : (
           <ul>
             {bookmarkedEvidence.map((item) => (
-              <li key={item.id}>
-                {item.title}
-              </li>
+              <li key={item.id}>{item.title}</li>
             ))}
           </ul>
         )}

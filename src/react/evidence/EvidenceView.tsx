@@ -1,4 +1,3 @@
-
 import { useReducer } from 'react';
 import EvidenceCard from './EvidenceCard';
 import type { Evidence } from '../../data/types';
@@ -12,10 +11,7 @@ import {
 // Bookmarks are managed through React Context.
 type EvidenceViewProps = {
   evidence: Evidence[];
-  onReviewStatusChange: (
-    id: string,
-    status: Evidence['status']
-  ) => void;
+  onReviewStatusChange: (id: string, status: Evidence['status']) => void;
 };
 
 export default function EvidenceView({
@@ -25,32 +21,24 @@ export default function EvidenceView({
   // Demo 7: One reducer manages all filter and sort state
   const [filters, dispatch] = useReducer(
     evidenceFilterReducer,
-    initialFilterState
+    initialFilterState,
   );
 
   // Derive filter options from the full evidence list
-  const types = [
-    ...new Set(evidence.map((item) => item.type)),
-  ];
+  const types = [...new Set(evidence.map((item) => item.type))];
 
-  const personIds = [
-    ...new Set(evidence.flatMap((item) => item.personIds)),
-  ];
+  const personIds = [...new Set(evidence.flatMap((item) => item.personIds))];
 
   const locationIds = [
     ...new Set(evidence.flatMap((item) => item.locationIds)),
   ];
 
   const statuses = [
-    ...new Set(
-      evidence.map((item) => item.status.toLowerCase())
-    ),
+    ...new Set(evidence.map((item) => item.status.toLowerCase())),
   ];
 
   const relevances = [
-    ...new Set(
-      evidence.map((item) => item.relevance.toLowerCase())
-    ),
+    ...new Set(evidence.map((item) => item.relevance.toLowerCase())),
   ];
 
   // Demo 4 + Demo 7:
@@ -61,23 +49,17 @@ export default function EvidenceView({
         .toLowerCase()
         .includes(filters.search.toLowerCase());
 
-      const matchesType =
-        !filters.type ||
-        item.type === filters.type;
+      const matchesType = !filters.type || item.type === filters.type;
 
       const matchesPerson =
         !filters.person ||
-        item.personIds.some(
-          (personId) => personId === filters.person
-        );
+        item.personIds.some((personId) => personId === filters.person);
 
       const matchesLocation =
-        !filters.location ||
-        item.locationIds.includes(filters.location);
+        !filters.location || item.locationIds.includes(filters.location);
 
       const matchesStatus =
-        !filters.status ||
-        item.status.toLowerCase() === filters.status;
+        !filters.status || item.status.toLowerCase() === filters.status;
 
       const matchesRelevance =
         !filters.relevance ||
@@ -94,12 +76,9 @@ export default function EvidenceView({
     })
     .sort((a, b) => {
       const difference =
-        new Date(a.timestamp).getTime() -
-        new Date(b.timestamp).getTime();
+        new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime();
 
-      return filters.sortOrder === 'newest'
-        ? -difference
-        : difference;
+      return filters.sortOrder === 'newest' ? -difference : difference;
     });
 
   return (
@@ -107,8 +86,7 @@ export default function EvidenceView({
       <h2>Evidence Catalogue</h2>
 
       <p>
-        Showing {visibleEvidence.length} of{' '}
-        {evidence.length} evidence items
+        Showing {visibleEvidence.length} of {evidence.length} evidence items
       </p>
 
       {/* Search filter */}
@@ -233,8 +211,7 @@ export default function EvidenceView({
         onChange={(event) =>
           dispatch({
             type: 'SET_SORT',
-            value: event.target.value as
-              'newest' | 'oldest',
+            value: event.target.value as 'newest' | 'oldest',
           })
         }
       >
@@ -243,12 +220,7 @@ export default function EvidenceView({
       </select>
 
       {/* Reset all filter and sort values */}
-      <button
-        type="button"
-        onClick={() =>
-          dispatch({ type: 'CLEAR_FILTERS' })
-        }
-      >
+      <button type="button" onClick={() => dispatch({ type: 'CLEAR_FILTERS' })}>
         Clear Filters
       </button>
 
@@ -257,9 +229,7 @@ export default function EvidenceView({
         <EvidenceCard
           key={item.id}
           evidence={item}
-          onReviewStatusChange={
-            onReviewStatusChange
-          }
+          onReviewStatusChange={onReviewStatusChange}
         />
       ))}
     </div>

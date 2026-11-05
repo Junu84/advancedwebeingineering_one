@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import './Dashboard.css';
 
@@ -9,10 +8,7 @@ import {
   caseData,
 } from '../../state/state.ts';
 
-import {
-  formatDate,
-  getStatusBadgeClass,
-} from '../../utils/utils.ts';
+import { formatDate, getStatusBadgeClass } from '../../utils/utils.ts';
 
 import type { Evidence } from '../../data/types';
 import { useBookmarks } from '../context/BookmarksContext';
@@ -28,28 +24,17 @@ type DashboardProps = {
   evidence: Evidence[];
 };
 
-function StatCard({
-  title,
-  value,
-  colorClass,
-  to,
-}: StatCardProps) {
+function StatCard({ title, value, colorClass, to }: StatCardProps) {
   return (
     <Link to={to} className="dashboard-stat-card">
-      <h3 className="dashboard-stat-title">
-        {title}
-      </h3>
+      <h3 className="dashboard-stat-title">{title}</h3>
 
-      <div className={`dashboard-stat-value ${colorClass}`}>
-        {value}
-      </div>
+      <div className={`dashboard-stat-value ${colorClass}`}>{value}</div>
     </Link>
   );
 }
 
-export default function Dashboard({
-  evidence,
-}: DashboardProps) {
+export default function Dashboard({ evidence }: DashboardProps) {
   // Demo 8: Shared bookmark state from React Context
   const { bookmarks } = useBookmarks();
 
@@ -67,42 +52,34 @@ export default function Dashboard({
 
   // Use React evidence state instead of legacy allEvidence
   const reviewedCount = evidence.filter(
-    (item) => item.status.toLowerCase() === 'reviewed'
+    (item) => item.status.toLowerCase() === 'reviewed',
   ).length;
 
   const flaggedCount = evidence.filter(
-    (item) => item.status.toLowerCase() === 'flagged'
+    (item) => item.status.toLowerCase() === 'flagged',
   ).length;
 
   const reviewPercentage =
-    totalEvidence === 0
-      ? 0
-      : Math.round((reviewedCount / totalEvidence) * 100);
+    totalEvidence === 0 ? 0 : Math.round((reviewedCount / totalEvidence) * 100);
 
   // Immutable sorting: never modify original evidence array
   const recentEvidence = [...evidence]
     .sort(
       (a, b) =>
-        new Date(b.timestamp).getTime() -
-        new Date(a.timestamp).getTime()
+        new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
     )
     .slice(0, 5);
 
-  const recentTimeline = allTimeline
-    .slice(-5)
-    .reverse();
+  const recentTimeline = allTimeline.slice(-5).reverse();
 
   return (
     <section>
       {/* Case summary */}
       <div className="mb-4">
-        <h2>
-          {caseData.title || 'Investigation Overview'}
-        </h2>
+        <h2>{caseData.title || 'Investigation Overview'}</h2>
 
         <p className="text-muted">
-          Overview of current evidence, key personnel,
-          and timeline events.
+          Overview of current evidence, key personnel, and timeline events.
         </p>
       </div>
 
@@ -157,8 +134,8 @@ export default function Dashboard({
           <h5>Review Progress</h5>
 
           <p>
-            {reviewedCount} of {totalEvidence} evidence items
-            reviewed ({reviewPercentage}%)
+            {reviewedCount} of {totalEvidence} evidence items reviewed (
+            {reviewPercentage}%)
           </p>
 
           <div className="progress">
@@ -182,9 +159,7 @@ export default function Dashboard({
           <h5>Recent Evidence</h5>
 
           {recentEvidence.length === 0 ? (
-            <p className="text-muted">
-              No evidence loaded.
-            </p>
+            <p className="text-muted">No evidence loaded.</p>
           ) : (
             <ul className="list-group list-group-flush">
               {recentEvidence.map((item) => (
@@ -204,9 +179,7 @@ export default function Dashboard({
                     </small>
                   </div>
 
-                  <span
-                    className={`badge ${getStatusBadgeClass(item.status)}`}
-                  >
+                  <span className={`badge ${getStatusBadgeClass(item.status)}`}>
                     {item.status || 'unreviewed'}
                   </span>
                 </li>
@@ -222,16 +195,11 @@ export default function Dashboard({
           <h5>Recent Timeline</h5>
 
           {recentTimeline.length === 0 ? (
-            <p className="text-muted">
-              No timeline events loaded.
-            </p>
+            <p className="text-muted">No timeline events loaded.</p>
           ) : (
             <ul className="list-group list-group-flush">
               {recentTimeline.map((event) => (
-                <li
-                  key={event.id}
-                  className="list-group-item"
-                >
+                <li key={event.id} className="list-group-item">
                   <strong>{event.title}</strong>
                 </li>
               ))}

@@ -1,4 +1,3 @@
-
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -28,7 +27,7 @@ async function initReactApp() {
         <BrowserRouter>
           <App />
         </BrowserRouter>
-      </BookmarksProvider>
+      </BookmarksProvider>,
     );
   } catch (error) {
     console.error('Failed to initialize React:', error);

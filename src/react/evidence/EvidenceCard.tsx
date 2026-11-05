@@ -1,13 +1,9 @@
-
 import type { Evidence } from '../../data/types';
 import { useBookmarks } from '../context/BookmarksContext';
 
 type EvidenceCardProps = {
   evidence: Evidence;
-  onReviewStatusChange: (
-    id: string,
-    status: Evidence['status']
-  ) => void;
+  onReviewStatusChange: (id: string, status: Evidence['status']) => void;
 };
 
 export default function EvidenceCard({
@@ -19,8 +15,7 @@ export default function EvidenceCard({
 
   const isBookmarked = bookmarks.includes(evidence.id);
 
-  const isReviewed =
-    evidence.status.toLowerCase() === 'reviewed';
+  const isReviewed = evidence.status.toLowerCase() === 'reviewed';
 
   return (
     <div className="evidence-card">
@@ -30,9 +25,7 @@ export default function EvidenceCard({
       <button
         type="button"
         onClick={() => toggleBookmark(evidence.id)}
-        aria-label={
-          isBookmarked ? 'Remove bookmark' : 'Add bookmark'
-        }
+        aria-label={isBookmarked ? 'Remove bookmark' : 'Add bookmark'}
         aria-pressed={isBookmarked}
       >
         {isBookmarked ? '★' : '☆'}
@@ -47,9 +40,7 @@ export default function EvidenceCard({
 
       <button
         type="button"
-        onClick={() =>
-          onReviewStatusChange(evidence.id, 'reviewed')
-        }
+        onClick={() => onReviewStatusChange(evidence.id, 'reviewed')}
         disabled={isReviewed}
       >
         {isReviewed ? 'Reviewed ✓' : 'Mark as Reviewed'}

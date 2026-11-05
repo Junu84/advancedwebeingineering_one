@@ -1,4 +1,3 @@
-
 export type SortOrder = 'newest' | 'oldest';
 
 export type EvidenceFilterState = {
@@ -11,10 +10,7 @@ export type EvidenceFilterState = {
   sortOrder: SortOrder;
 };
 
-type FilterField = Exclude<
-  keyof EvidenceFilterState,
-  'sortOrder'
->;
+type FilterField = Exclude<keyof EvidenceFilterState, 'sortOrder'>;
 
 export type EvidenceFilterAction =
   | {
@@ -42,7 +38,7 @@ export const initialFilterState: EvidenceFilterState = {
 
 export function evidenceFilterReducer(
   state: EvidenceFilterState,
-  action: EvidenceFilterAction
+  action: EvidenceFilterAction,
 ): EvidenceFilterState {
   switch (action.type) {
     case 'SET_FILTER':

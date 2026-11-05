@@ -1,15 +1,6 @@
+import { createContext, useContext, useState, type ReactNode } from 'react';
 
-import {
-  createContext,
-  useContext,
-  useState,
-  type ReactNode,
-} from 'react';
-
-import {
-  loadReactBookmarks,
-  saveReactBookmarks,
-} from '../../storage/storage';
+import { loadReactBookmarks, saveReactBookmarks } from '../../storage/storage';
 
 import { saveBookmarksToStorage } from '../../storage/storage';
 
@@ -18,16 +9,13 @@ type BookmarksContextValue = {
   toggleBookmark: (id: string) => void;
 };
 
-const BookmarksContext =
-  createContext<BookmarksContextValue | undefined>(undefined);
+const BookmarksContext = createContext<BookmarksContextValue | undefined>(
+  undefined,
+);
 
-export function BookmarksProvider({
-  children,
-}: {
-  children: ReactNode;
-}) {
-  const [bookmarks, setBookmarks] = useState<string[]>(
-    () => loadReactBookmarks()
+export function BookmarksProvider({ children }: { children: ReactNode }) {
+  const [bookmarks, setBookmarks] = useState<string[]>(() =>
+    loadReactBookmarks(),
   );
 
   function toggleBookmark(id: string) {
@@ -42,9 +30,7 @@ export function BookmarksProvider({
   }
 
   return (
-    <BookmarksContext.Provider
-      value={{ bookmarks, toggleBookmark }}
-    >
+    <BookmarksContext.Provider value={{ bookmarks, toggleBookmark }}>
       {children}
     </BookmarksContext.Provider>
   );
@@ -54,9 +40,7 @@ export function useBookmarks() {
   const context = useContext(BookmarksContext);
 
   if (!context) {
-    throw new Error(
-      'useBookmarks must be used inside BookmarksProvider'
-    );
+    throw new Error('useBookmarks must be used inside BookmarksProvider');
   }
 
   return context;

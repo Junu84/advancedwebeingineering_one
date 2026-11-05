@@ -1,4 +1,3 @@
-
 import type { Person } from '../../data/types.ts';
 
 type PersonCardProps = {
@@ -8,10 +7,7 @@ type PersonCardProps = {
 
 // DEMO 5: Presentational component.
 // Receives data through typed props and only displays the UI.
-export function PersonCard({
-  person,
-  evidenceCount,
-}: PersonCardProps) {
+export function PersonCard({ person, evidenceCount }: PersonCardProps) {
   return (
     <article className="person-card">
       <div className="person-card-header">
@@ -19,7 +15,7 @@ export function PersonCard({
           src={`/${person.avatar.replace(/^\/+/, '')}`}
           alt={person.name}
           className="person-avatar"
-        />     
+        />
 
         <div>
           <h3>{person.name}</h3>
@@ -33,15 +29,11 @@ export function PersonCard({
 
       <ul>
         {person.responsibilities.map((responsibility) => (
-          <li key={responsibility}>
-            {responsibility}
-          </li>
+          <li key={responsibility}>{responsibility}</li>
         ))}
       </ul>
 
-      <blockquote>
-        "{person.statement}"
-      </blockquote>
+      <blockquote>"{person.statement}"</blockquote>
 
       <p>{person.background}</p>
 

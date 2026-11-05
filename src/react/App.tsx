@@ -1,16 +1,7 @@
-
 import { useState } from 'react';
-import {
-  NavLink,
-  Routes,
-  Route,
-  Navigate,
-} from 'react-router-dom';
+import { NavLink, Routes, Route, Navigate } from 'react-router-dom';
 
-import {
-  allEvidence,
-  allPeople,
-} from '../state/state.ts';
+import { allEvidence, allPeople } from '../state/state.ts';
 
 import type { Evidence } from '../data/types';
 
@@ -23,21 +14,17 @@ import TimelineView from './timeline/TimelineView';
 
 export default function App() {
   // Demo 6: App owns evidence review state
-  const [evidence, setEvidence] = useState<Evidence[]>(
-    () => [...allEvidence]
-  );
+  const [evidence, setEvidence] = useState<Evidence[]>(() => [...allEvidence]);
 
   // Demo 6: Callback for review-status changes
   function handleReviewStatusChange(
     evidenceId: string,
-    newStatus: Evidence['status']
+    newStatus: Evidence['status'],
   ) {
     setEvidence((previousEvidence) =>
       previousEvidence.map((item) =>
-        item.id === evidenceId
-          ? { ...item, status: newStatus }
-          : item
-      )
+        item.id === evidenceId ? { ...item, status: newStatus } : item,
+      ),
     );
   }
 
@@ -58,17 +45,12 @@ export default function App() {
 
       <main>
         <Routes>
-          <Route
-            path="/"
-            element={<Navigate to="/dashboard" replace />}
-          />
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
           {/* Dashboard */}
           <Route
             path="/dashboard"
-            element={
-              <Dashboard evidence={evidence} />
-            }
+            element={<Dashboard evidence={evidence} />}
           />
 
           {/* Evidence Catalogue */}
@@ -83,16 +65,10 @@ export default function App() {
           />
 
           {/* People */}
-          <Route
-            path="/team/people"
-            element={<PeopleView mode="people" />}
-          />
+          <Route path="/team/people" element={<PeopleView mode="people" />} />
 
           {/* Person detail */}
-          <Route
-            path="/team/people/:personId"
-            element={<PersonalDetail />}
-          />
+          <Route path="/team/people/:personId" element={<PersonalDetail />} />
 
           {/* Locations */}
           <Route
@@ -101,27 +77,16 @@ export default function App() {
           />
 
           {/* Timeline */}
-          <Route
-            path="/timeline"
-            element={<TimelineView />}
-          />
+          <Route path="/timeline" element={<TimelineView />} />
 
           {/* Workspace */}
           <Route
             path="/workspace"
-            element={
-              <WorkspaceView
-                evidence={evidence}
-                people={allPeople}
-              />
-            }
+            element={<WorkspaceView evidence={evidence} people={allPeople} />}
           />
 
           {/* Fallback */}
-          <Route
-            path="*"
-            element={<Navigate to="/dashboard" replace />}
-          />
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </main>
     </>

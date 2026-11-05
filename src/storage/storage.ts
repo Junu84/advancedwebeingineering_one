@@ -57,7 +57,6 @@ export function loadNoteAsync(evidenceId: string): Promise<string> {
   });
 }
 
-
 export function loadReactBookmarks(): string[] {
   const raw = localStorage.getItem(STORAGE_KEY_BOOKMARKS);
 
@@ -66,8 +65,7 @@ export function loadReactBookmarks(): string[] {
   try {
     const parsed: unknown = JSON.parse(raw);
 
-    return Array.isArray(parsed) &&
-      parsed.every((id) => typeof id === 'string')
+    return Array.isArray(parsed) && parsed.every((id) => typeof id === 'string')
       ? parsed
       : [];
   } catch {
@@ -76,8 +74,5 @@ export function loadReactBookmarks(): string[] {
 }
 
 export function saveReactBookmarks(bookmarks: string[]): void {
-  localStorage.setItem(
-    STORAGE_KEY_BOOKMARKS,
-    JSON.stringify(bookmarks)
-  );
+  localStorage.setItem(STORAGE_KEY_BOOKMARKS, JSON.stringify(bookmarks));
 }

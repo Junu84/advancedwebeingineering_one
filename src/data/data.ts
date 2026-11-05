@@ -1,4 +1,3 @@
-
 import type {
   CaseMetadata,
   Evidence,
@@ -244,7 +243,7 @@ export async function loadReactData(): Promise<void> {
 
   setAllEvidence(evidence);
   console.log('React parsed evidence:', evidence.length);
-  console.log('React shared evidence:', allEvidence.length);  
+  console.log('React shared evidence:', allEvidence.length);
   setFilteredEvidence(evidence);
 
   console.log('React parsed evidence:', evidence.length);
